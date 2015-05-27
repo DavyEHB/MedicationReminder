@@ -68,13 +68,22 @@ public class MedicationAddFragment extends Fragment {
             public void onClick(View v) {
                 if (mItem.getName() != ""){
                     MedicationList.getInstance().addMedication(mItem);
-                    mListener.onAddClicked();
+                    mListener.onButtonClicked();
                 }
                 else
                 {
                     Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Medication name is empty", Toast.LENGTH_SHORT);
                     toast.show();
                 }
+            }
+        });
+
+        Button cancel = (Button) rootView.findViewById(R.id.btn_cancel);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mItem = null;
+                mListener.onButtonClicked();
             }
         });
 
@@ -196,8 +205,7 @@ public class MedicationAddFragment extends Fragment {
      */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
-        public void onAddClicked();
+        public void onButtonClicked();
     }
 
     private void addAlarm(){

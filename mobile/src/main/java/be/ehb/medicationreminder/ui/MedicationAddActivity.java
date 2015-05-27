@@ -31,14 +31,8 @@ public class MedicationAddActivity extends Activity implements MedicationAddFrag
         }
     }
 
-
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
-    public void onAddClicked() {
+    public void onButtonClicked() {
         this.finish();
     }
 

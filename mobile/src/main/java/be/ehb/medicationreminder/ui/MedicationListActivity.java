@@ -118,13 +118,7 @@ public class MedicationListActivity extends Activity
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-    //
-
-    @Override
-    public void onAddClicked() {
+    public void onButtonClicked() {
         if (mTwoPane) {
 
 /*
