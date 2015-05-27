@@ -1,0 +1,77 @@
+<!-- fragment_edit_name.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_name"
+    android:layout_width="wrap_content" android:layout_height="wrap_content"
+    android:layout_gravity="center" android:orientation="vertical"  >
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_mon"
+        android:textOff="@string/monday"
+        android:textOn="@string/monday"
+        android:background="@drawable/button_toggle"/>
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_tue"
+        android:textOff="@string/tuesday"
+        android:textOn="@string/tuesday"
+        android:background="@drawable/button_toggle"/>
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_wed"
+        android:textOff="@string/wednesday"
+        android:textOn="@string/wednesday"
+        android:background="@drawable/button_toggle"/>
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_thu"
+        android:textOff="@string/thursday"
+        android:textOn="@string/thursday"
+        android:background="@drawable/button_toggle"/>
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_fri"
+        android:textOff="@string/friday"
+        android:textOn="@string/friday"
+        android:background="@drawable/button_toggle"/>
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_sat"
+        android:textOff="@string/saturday"
+        android:textOn="@string/saturday"
+        android:background="@drawable/button_toggle"/>
+
+    <ToggleButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/btn_sun"
+        android:textOff="@string/sunday"
+        android:textOn="@string/sunday"
+        android:background="@drawable/button_toggle"/>
+
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\libs\internal_impl-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1609e6d42d0480b0f4188e2c29f75388fa12a8f0">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\internal_impl-21.0.0-5e68f7de669fff553a38fc7f97154e650023e334.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-cast\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e5b9f5b0aa8dee788beb63d23832cb29ce771343">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-8528833ddc699a590597998b0fc3f9d173eceb4c.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9c9dea9e85aceb09d95df5e6f7bc8a43fc286068">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-88252ea628c92a653dabf2bdb1693e48cc29ead2.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-identity\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b48d5c51a9a9e329005106b4667f54948de4d4d8">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-cb8e4a78ea738372e3fcd3d6cd0c94b46c5ae428.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="686344a780033e4ba22b926cd225f8d4941247e6">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\classes-8c8967ce197646eaa40b2ed2dcaca7eabcbf2d78.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-wallet\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6046e5cdaf799120b7c56a5a061d80e8854c4d34">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-815e6c5c6b9f7c66a685e37800b63f94aff4ce9f.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-drive\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="a0ce76dfaccbfbd6c551ed2174280aaabe60fe47">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-0fb1846cb04845145f1e2f4b7174558dbd2bf107.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-location\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="b2c07cdb814fe988ad05f7b4d767a841514a5991">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-6106663b68030f79ac9b8f108e9f1336920be434.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="c95ba8152923e4872e86a82cfcba9a51c0214328">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-bcf3c870d986ce383140e37bfed496968e6f03ee.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-gcm\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7215ac1f2fca947b9415a6ee2a1bf991364aab24">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-5ca3ce013fdcef7f1264624aa20b85d3b28fe431.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\6.5.87\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6384c6cd674a22610b932d9464aa6938d067f285">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\classes-0ee1c956956dc8cc56f9342379ed581ba1e3fba4.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.android.support\support-v4\22.1.1\libs\internal_impl-22.1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="9e070ad32b2700b0343e8e0cccc437733d91ba3a">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\internal_impl-22.1.1-d00ef59cadbd06af59c023ee001b4174837abd60.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-ads\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3988694bf9d8186ff97ad5cdfa4ed88b5010fe08">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-51e4af7335027be6e4dea09b739579bc0db6e9ab.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-maps\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="fe3e0c6de7cceed888b277487238b6af9a1cc299">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-855dff6aeb21116f70606dbd493f4a0728790f76.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-plus\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="59652857a825fff0de62166fca1bc9553cc01abb">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-0d48a6ebe292c39d7800c7bbfdbdb013c9d283d1.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-appinvite\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="bb36004beb02b69562cbec9aa7d6a3cf16bf5d1b">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-eb507225df69ff26f312b4cd5aaa2d96b37b8036.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-appindexing\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e35fae1b377c23aa5fd2d309a190c2d0f73d54ec">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-61c262b924e91c80fda351d760e25991cba75afe.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="f2f7ec211ce4d244ee97a57523eeb4526dc3cf8a">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-8cf3e0e08d94f13872ca537f1fdc55c20a9a9078.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-fitness\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4f4fe3c23776540625f3c2844152a7510fddf9f1">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-6f0db7656eda6f71a65f1bb76f67168f53926f5c.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-games\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="3b4ff5c39dace8f3b4ab4cab8191785547a0815f">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-fb355fe539361fee241dc046cb3aa023ee132a69.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-wearable\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="e5bf453b070c1e39297986144960e45afa0fdfad">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-50a8350fd2214a2f303754754c19d45601932c0d.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-appstate\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0180d031a7b54dabb93b4af3869468b55dc938bd">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-518b79624c8a25f096028112b698963a15491949.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.google.android.support\wearable\1.1.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="27f19641b81b1078e653d2f0e5d1ed44d158a785">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\classes-513743ad3c683d41648a721685dd0111b9b06c9e.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\6.5.87\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="95482e7c792a7c0d5a9d5461e97726bd54fe9549">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\classes-d0d84538c57eb5a3572c8fe0d15c5348b354d825.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="efeda77c808750cb670ee9c48d8a1835d89dbcb2">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\classes-36af4bdb2c3c516c23dd9dd874415f986e21e5e0.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-panorama\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="565a01f90f1529f73362707c4c185d0623a68782">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-5fb4dbc945961b8b69c0963d71ef71fa1b265500.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-safetynet\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="0708ef60917bf94913fe9ef972a655b99462dca7">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-ac50f6d50f87840d3e62157ba273a1dea53acac1.jar" />
+    </item>
+    <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\com.google.android.gms\play-services-nearby\7.3.0\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="5ea948d825957be6c4358c48422bee60eef2d487">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-e8279daf17e1e8452ab7ee686ba2f0a9dc8235f7.jar" />
+    </item>
+    <item
+        jar="C:\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\22.1.1\support-annotations-22.1.1.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01d051a6bfb1218b1db2d3a5af0480ac2c25c42a">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\support-annotations-22.1.1-6e82393a43343ff5f25d27d337e5035a9876c453.jar" />
+    </item>
+    <item
+        jar="C:\adt-bundle-windows-x86_64-20140702\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.0\support-annotations-21.0.0.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="1a578b9607b36266c63d43a4fa0ab5664dbe911e">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\support-annotations-21.0.0-892b5137c61b7abc511575015de224d00b13e92a.jar" />
+    </item>
+
+</items>
