@@ -1,0 +1,146 @@
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:padding="20sp">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/new_medication"
+        android:id="@+id/new_med_Title"
+        android:gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="5sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Medication Name"
+        android:id="@+id/new_med_name_title"
+        android:layout_below="@+id/new_med_Title"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Tap to enter"
+        android:id="@+id/new_med_name"
+        android:layout_below="@+id/new_med_name_title"
+        android:layout_alignParentStart="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        android:orientation="vertical"
+        android:id="@+id/line"
+        android:layout_below="@+id/new_med_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:weightSum="3"
+        android:id="@+id/linearLayout2">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:id="@+id/btn_cancel"
+            android:layout_weight="1"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="0.5"
+            android:orientation="horizontal"
+            android:id="@+id/blank" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add"
+            android:id="@+id/btn_add"
+            android:layout_gravity="center"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/line"
+        android:layout_above="@+id/linearLayout2"
+        android:weightSum="100">
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/frameLayout"
+            android:layout_toStartOf="@+id/linearLayout3"
+            android:layout_weight="75">
+
+            <TextView
+                android:id="@+id/empty"
+                android:text="Tap to add alarm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible"
+                android:layout_above="@+id/linearLayout2"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/new_alarm_list"
+                android:layout_below="@+id/linearLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_above="@+id/linearLayout2"
+                android:choiceMode="singleChoice"
+                android:minHeight="100sp"
+                android:layout_gravity="center" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/linearLayout3"
+            android:layout_above="@+id/linearLayout2"
+            android:layout_below="@+id/line"
+            android:layout_weight="25">
+
+            <ImageView android:id="@+id/new_image"
+                android:contentDescription="@string/img_description"
+                android:src="@drawable/no_image"
+                android:layout_above="@+id/new_alarm_list"
+                android:background="@drawable/image_border"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="top|right"
+                android:layout_margin="10sp" />
+            </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

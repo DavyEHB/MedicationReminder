@@ -60,12 +60,13 @@
         <ImageView android:id="@+id/new_image"
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/no_image"
-                android:layout_below="@+id/medication_name"
+                android:layout_above="@+id/new_alarm_list"
                 android:background="@drawable/image_border"
-                android:layout_weight="50"
+                android:layout_weight="25"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:maxHeight="250dp"/>
 
     </LinearLayout>
 
@@ -83,7 +84,8 @@
             android:layout_below="@+id/linearLayout"
             android:layout_centerHorizontal="true"
             android:layout_above="@+id/linearLayout2"
-            android:choiceMode="singleChoice" />
+            android:choiceMode="singleChoice"
+            android:minHeight="100sp"/>
 
         <TextView
             android:id="@+id/empty"

@@ -30,7 +30,7 @@ import be.ehb.medicationreminder.core.MedicationList;
  * to listen for item selections.
  */
 public class MedicationListActivity extends Activity
-        implements MedicationListFragment.Callbacks,MedicationAddFragment.OnFragmentInteractionListener {
+        implements MedicationListFragment.Callbacks{
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -95,50 +95,8 @@ public class MedicationListActivity extends Activity
 
     @Override
     public void onAddMedicationFragment() {
-        if (mTwoPane) {
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
-            Bundle arguments = new Bundle();
-            //arguments.putInt(MedicationDetailFragment.ARG_ITEM_ID, id);
-            addFrag = new MedicationAddFragment();
-            //fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.medication_detail_container, addFrag)
-                    .commit();
-
-        } else {
-            // In single-pane mode, simply start the detail activity
-            // for the selected item ID.
-            Log.d("NEW MED","Starting new activity");
-            Intent detailIntent = new Intent(this, MedicationAddActivity.class);
-            startActivityForResult(detailIntent, ADD_NEW_MED);
-        }
-    }
-
-    @Override
-    public void onButtonClicked() {
-        if (mTwoPane) {
-
-/*
-            FragmentManager manager = getFragmentManager();
-            FragmentTransaction trans = manager.beginTransaction();
-            trans.remove(addFrag);
-            trans.commit();
-            */
-            Bundle arguments = new Bundle();
-            arguments.putInt(MedicationDetailFragment.ARG_ITEM_ID, MedicationList.getInstance().getMedicationList().size()-1);
-            MedicationDetailFragment fragment = new MedicationDetailFragment();
-            fragment.setArguments(arguments);
-            getFragmentManager().beginTransaction()
-                    .remove(addFrag)
-                    .addToBackStack(null)
-                    .replace(R.id.medication_detail_container, fragment)
-                    .commit();
-
-            listFrag.updateList();
-
-        }
+        Log.d("NEW MED","Starting new activity");
+        Intent detailIntent = new Intent(this, MedicationAddActivity.class);
+        startActivityForResult(detailIntent, ADD_NEW_MED);
     }
 }

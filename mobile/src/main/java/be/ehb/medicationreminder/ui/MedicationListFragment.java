@@ -196,8 +196,4 @@ public class MedicationListFragment extends ListFragment{
         adapter.notifyDataSetChanged();
         super.onResume();
     }
-
-    public void updateList(){
-        adapter.notifyDataSetChanged();
-    }
 }
