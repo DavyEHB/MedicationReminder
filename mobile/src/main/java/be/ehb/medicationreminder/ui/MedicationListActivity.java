@@ -37,10 +37,6 @@ public class MedicationListActivity extends Activity
      * device.
      */
     private boolean mTwoPane;
-    private MedicationListFragment listFrag = null;
-    private MedicationAddFragment addFrag = null;
-
-    public static final int ADD_NEW_MED = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +49,7 @@ public class MedicationListActivity extends Activity
             // res/values-sw600dp). If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
-
+            MedicationListFragment listFrag;
             // In two-pane mode, list items should be given the
             // 'activated' state when touched.
             listFrag = ((MedicationListFragment) getFragmentManager()
@@ -61,8 +57,6 @@ public class MedicationListActivity extends Activity
             listFrag.setHasOptionsMenu(true);
 
         }
-
-        // TODO: If exposing deep links into your app, handle intents here.
     }
 
     /**
@@ -96,7 +90,7 @@ public class MedicationListActivity extends Activity
     @Override
     public void onAddMedicationFragment() {
         Log.d("NEW MED","Starting new activity");
-        Intent detailIntent = new Intent(this, MedicationAddActivity.class);
-        startActivityForResult(detailIntent, ADD_NEW_MED);
+        Intent addIntent = new Intent(this, MedicationAddActivity.class);
+        startActivityForResult(addIntent, MedicationAddActivity.ADD_NEW_MED);
     }
 }

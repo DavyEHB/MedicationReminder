@@ -8,7 +8,7 @@ import java.util.Iterator;
  */
 public class MedicationList{
 
-    private ArrayList<Medication> arMedList = new ArrayList<>();
+    private final ArrayList<Medication> arMedList = new ArrayList<>();
     private static MedicationList instance = null;
 
     private MedicationList(){}
@@ -42,6 +42,7 @@ public class MedicationList{
         m2.addAlarm(ts4);
         m3.addAlarm(ts5);
         m4.addAlarm(ts6);
+        m4.addAlarm(ts1);
 
 
         /*
@@ -82,7 +83,7 @@ public class MedicationList{
         return this.arMedList;
     }
 
-    public Medication getMedicationByName(String name){
+    Medication getMedicationByName(String name){
         Iterator<Medication> MedIt = arMedList.iterator();
         while (MedIt.hasNext()){
             Medication mNext = MedIt.next();
@@ -93,7 +94,7 @@ public class MedicationList{
         return null;
     }
 
-    public Medication getMedicationByID(int ID){
+    Medication getMedicationByID(int ID){
         Iterator<Medication> MedIt = arMedList.iterator();
         while (MedIt.hasNext()){
             Medication mNext = MedIt.next();
@@ -104,7 +105,7 @@ public class MedicationList{
         return null;
     }
 
-    public ArrayList<Medication> checkAlarmss(Alarms Alarms){
+    public ArrayList<Medication> checkAlarms(Alarms Alarms){
     	ArrayList<Medication> tList = new ArrayList<Medication>();
         Iterator<Medication> MedIt = arMedList.iterator();
         while (MedIt.hasNext()){

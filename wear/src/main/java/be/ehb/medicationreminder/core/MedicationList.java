@@ -8,21 +8,23 @@ import java.util.Iterator;
  */
 public class MedicationList{
 
-    private ArrayList<Medication> arMedList = new ArrayList<>();
+    private final ArrayList<Medication> arMedList = new ArrayList<>();
     private static MedicationList instance = null;
 
     private MedicationList(){}
 
-    public static MedicationList getInstance(){
-        if(instance == null){
-            synchronized (MedicationList.class) {
-                if(instance == null){
-                    instance = new MedicationList();
-                }
-            }
-        }
-        return instance;
-    }
+// --Commented out by Inspection START (27/05/2015 13:09):
+//    public static MedicationList getInstance(){
+//        if(instance == null){
+//            synchronized (MedicationList.class) {
+//                if(instance == null){
+//                    instance = new MedicationList();
+//                }
+//            }
+//        }
+//        return instance;
+//    }
+// --Commented out by Inspection STOP (27/05/2015 13:09)
 
     public void addMedication(Medication medication){
         this.arMedList.add(medication);
@@ -44,7 +46,7 @@ public class MedicationList{
         return this.arMedList;
     }
 
-    public Medication getMedicationByName(String name){
+    Medication getMedicationByName(String name){
         Iterator<Medication> MedIt = arMedList.iterator();
         while (MedIt.hasNext()){
             Medication mNext = MedIt.next();
@@ -55,7 +57,7 @@ public class MedicationList{
         return null;
     }
 
-    public Medication getMedicationByID(int ID){
+    Medication getMedicationByID(int ID){
         Iterator<Medication> MedIt = arMedList.iterator();
         while (MedIt.hasNext()){
             Medication mNext = MedIt.next();

@@ -51,7 +51,7 @@ public class MedicationDetailFragment extends Fragment{
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
-    private static final String ARG_POS_ID = "alarm_id";
+    //private static final String ARG_POS_ID = "alarm_id";
 
     /**
      * The dummy content this fragment is presenting.
@@ -61,8 +61,6 @@ public class MedicationDetailFragment extends Fragment{
     private final int SELECT_PHOTO = 1;
     private final int ADD_ALARM = 2;
     private final int CHANGE_ALARM = 3;
-
-    private List<Map<String, Object>> data;
 
     private ArrayAdapter adapter = null;
 

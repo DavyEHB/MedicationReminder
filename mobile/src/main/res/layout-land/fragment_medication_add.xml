@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Medication Name"
+        android:text="@string/detail_med_name"
         android:id="@+id/new_med_name_title"
         android:layout_below="@+id/new_med_Title"
         android:layout_alignParentStart="true" />
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Tap to enter"
+        android:text="@string/tap_to_enter"
         android:id="@+id/new_med_name"
         android:layout_below="@+id/new_med_name_title"
         android:layout_alignParentStart="true" />
@@ -59,7 +59,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:id="@+id/btn_cancel"
             android:layout_weight="1"/>
 
@@ -73,7 +73,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
+            android:text="@string/add"
             android:id="@+id/btn_add"
             android:layout_gravity="center"
             android:layout_weight="1"/>
@@ -86,33 +86,28 @@
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/line"
         android:layout_above="@+id/linearLayout2"
-        android:weightSum="100">
+        android:weightSum="100"
+        android:baselineAligned="false">
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:id="@+id/frameLayout"
-            android:layout_toStartOf="@+id/linearLayout3"
             android:layout_weight="75">
 
             <TextView
                 android:id="@+id/empty"
-                android:text="Tap to add alarm"
+                android:text="@string/tap_to_add"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:visibility="visible"
-                android:layout_above="@+id/linearLayout2"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center" />
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/new_alarm_list"
-                android:layout_below="@+id/linearLayout"
-                android:layout_centerHorizontal="true"
-                android:layout_above="@+id/linearLayout2"
                 android:choiceMode="singleChoice"
                 android:minHeight="100sp"
                 android:layout_gravity="center" />
@@ -122,16 +117,12 @@
             android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_alignParentEnd="true"
             android:id="@+id/linearLayout3"
-            android:layout_above="@+id/linearLayout2"
-            android:layout_below="@+id/line"
-            android:layout_weight="25">
+           android:layout_weight="25">
 
             <ImageView android:id="@+id/new_image"
                 android:contentDescription="@string/img_description"
                 android:src="@drawable/no_image"
-                android:layout_above="@+id/new_alarm_list"
                 android:background="@drawable/image_border"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

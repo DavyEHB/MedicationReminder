@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class MedLog {
 
 	private static MedLog instance = null;
-	private ArrayList<String> arLogList = new ArrayList<>();
+	private final ArrayList<String> arLogList = new ArrayList<>();
 
 	private MedLog() {
 		arLogList.clear();

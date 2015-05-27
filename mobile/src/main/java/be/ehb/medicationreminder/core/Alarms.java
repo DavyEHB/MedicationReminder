@@ -1,8 +1,6 @@
 package be.ehb.medicationreminder.core;
 
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,7 +18,7 @@ public class Alarms{
     private int id;
 
     @SuppressWarnings("unused")
-    private Alarms(){};
+    private Alarms(){}
 
 	public Alarms(int hour, int minutes){
         iHours = hour;
@@ -33,7 +31,7 @@ public class Alarms{
         this.DOW.add(DayOfWeek.FRI);
         this.DOW.add(DayOfWeek.SAT);
         this.DOW.add(DayOfWeek.SUN);
-    };
+    }
 
 
     public Alarms(String time){

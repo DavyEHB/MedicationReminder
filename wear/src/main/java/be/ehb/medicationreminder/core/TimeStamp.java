@@ -10,7 +10,7 @@ public class TimeStamp {
     private String sTime;
 
     @SuppressWarnings("unused")
-	private TimeStamp(){};
+	private TimeStamp(){}
 
     public TimeStamp(DayOfWeek dow, String time){
         DOW = dow;

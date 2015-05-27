@@ -1,8 +1,6 @@
 package be.ehb.medicationreminder.ui;
 
 import android.app.Activity;
-import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.util.Log;
@@ -12,12 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import be.ehb.medicationreminder.R;
 
 import be.ehb.medicationreminder.core.MedicationList;
-import be.ehb.medicationreminder.ui.dummy.DummyContent;
 
 /**
  * A list fragment representing a list of Medications. This fragment
@@ -67,7 +63,7 @@ public class MedicationListFragment extends ListFragment{
      * A dummy implementation of the {@link Callbacks} interface that does
      * nothing. Used only when this fragment is not attached to an activity.
      */
-    private static Callbacks sDummyCallbacks = new Callbacks() {
+    private static final Callbacks sDummyCallbacks = new Callbacks() {
         @Override
         public void onItemSelected(int id) {
         }
@@ -148,18 +144,6 @@ public class MedicationListFragment extends ListFragment{
             // Serialize and persist the activated item position.
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
-    }
-
-    /**
-     * Turns on activate-on-click mode. When this mode is on, list items will be
-     * given the 'activated' state when touched.
-     */
-    public void setActivateOnItemClick(boolean activateOnItemClick) {
-        // When setting CHOICE_MODE_SINGLE, ListView will automatically
-        // give items the 'activated' state when touched.
-        getListView().setChoiceMode(activateOnItemClick
-                ? ListView.CHOICE_MODE_SINGLE
-                : ListView.CHOICE_MODE_NONE);
     }
 
     private void setActivatedPosition(int position) {

@@ -8,10 +8,10 @@ public class Medication {
 	private int iID;
 	private String sName;
 	private String sPicture;
-    private ArrayList<Alarms> aAlarms = new ArrayList<>();
+    private final ArrayList<Alarms> aAlarms = new ArrayList<>();
 
     @SuppressWarnings("unused")
-	private Medication(){};
+	private Medication(){}
 
     public Medication (String Name){
         this.sName = Name;

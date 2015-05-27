@@ -19,6 +19,8 @@ import be.ehb.medicationreminder.R;
 
 public class MedicationAddActivity extends Activity implements MedicationAddFragment.OnFragmentInteractionListener{
 
+    public static final int ADD_NEW_MED = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,21 +36,5 @@ public class MedicationAddActivity extends Activity implements MedicationAddFrag
     @Override
     public void onButtonClicked() {
         this.finish();
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_medication_add, container, false);
-            return rootView;
-        }
     }
 }

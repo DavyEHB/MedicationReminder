@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TimePicker;
@@ -25,11 +26,9 @@ import be.ehb.medicationreminder.core.MedicationList;
 public class TimePickerDialog extends DialogFragment {
 
     private TimePicker mTimePick;
-    private boolean isModal = false;
 
     private int iHour;
     private int iMinute;
-    private int iPos;
     private ArrayList<Integer> sDays = new ArrayList<>();
 
     private List<ToggleButton> toggleButtons;
@@ -53,7 +52,7 @@ public class TimePickerDialog extends DialogFragment {
 
     public static TimePickerDialog newInstance(String title) {
         TimePickerDialog frag = new TimePickerDialog();
-        frag.isModal = true; // WHEN FRAGMENT IS CALLED AS A DIALOG SET FLAG
+        //frag.isModal = true; // WHEN FRAGMENT IS CALLED AS A DIALOG SET FLAG
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);
@@ -89,7 +88,7 @@ public class TimePickerDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_time_picker, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_time_picker,null);
         String title = getArguments().getString("title", "Enter Name");
         iHour = getArguments().getInt(ARG_HOUR_ID);
         iMinute = getArguments().getInt(ARG_MINUTE_ID);
