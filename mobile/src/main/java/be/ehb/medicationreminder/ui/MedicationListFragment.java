@@ -1,6 +1,8 @@
 package be.ehb.medicationreminder.ui;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.util.Log;
@@ -8,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import be.ehb.medicationreminder.R;
 
@@ -107,6 +111,39 @@ public class MedicationListFragment extends ListFragment{
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("Delete Medication")
+                        .setMessage("Do you want to remove this medication?")
+
+                        .setPositiveButton("YES",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                       // mItem.removeAlarm(mItem.getAlarms().get(position));
+
+                                        MedicationList.getInstance().deleteMedication(MedicationList.getInstance().getMedicationList().get(position));
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                })
+                        .setNegativeButton("NO",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+                return true;
+            }
+        });
+    }
+
+    @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
@@ -132,10 +169,10 @@ public class MedicationListFragment extends ListFragment{
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-       // mCallbacks.onItemSelected(DummyContent.ITEMS.get(position).id);
         mCallbacks.onItemSelected(position);
-        //mCallbacks.onItemSelected(String.valueOf(id));
     }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
