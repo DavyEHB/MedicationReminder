@@ -8,11 +8,8 @@ import java.util.Iterator;
  */
 public class MedicationList{
 
-    private final ArrayList<Medication> arMedList = new ArrayList<>();
+    private ArrayList<Medication> arMedList = null;
     private static MedicationList instance = null;
-
-    private MedicationList(){}
-
 
     static {
         // Add 3 sample items.
@@ -63,6 +60,25 @@ public class MedicationList{
         return instance;
     }
 
+    public static MedicationList getInstance(ArrayList<Medication> medications){
+        if(instance == null){
+            synchronized (MedicationList.class) {
+                if(instance == null){
+                    instance = new MedicationList(medications);
+                }
+            }
+        }
+        return instance;
+    }
+
+    private MedicationList(){
+        arMedList = new ArrayList<>();
+    }
+
+    private MedicationList(ArrayList<Medication> meds){
+        arMedList = meds;
+    }
+
     public void addMedication(Medication medication){
         this.arMedList.add(medication);
     }
@@ -81,6 +97,10 @@ public class MedicationList{
 
     public ArrayList<Medication> getMedicationList(){
         return this.arMedList;
+    }
+
+    public void setMedicationList(ArrayList<Medication> medications){
+        this.arMedList = medications;
     }
 
     Medication getMedicationByName(String name){

@@ -125,8 +125,6 @@ public class MedicationListFragment extends ListFragment{
                         .setPositiveButton("YES",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                       // mItem.removeAlarm(mItem.getAlarms().get(position));
-
                                         MedicationList.getInstance().deleteMedication(MedicationList.getInstance().getMedicationList().get(position));
                                         adapter.notifyDataSetChanged();
                                     }
