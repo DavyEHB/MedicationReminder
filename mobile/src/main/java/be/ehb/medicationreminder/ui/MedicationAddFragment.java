@@ -43,10 +43,14 @@ public class MedicationAddFragment extends Fragment {
     private final int SELECT_PHOTO = 1;
     private final int SELECT_TIME = 2;
 
-    private OnFragmentInteractionListener mListener;
+    private Callback mCallback;
     private Medication mItem = null;
 
     private ArrayAdapter adapter = null;
+
+    public interface Callback {
+        public void onButtonClicked();
+    }
 
     public MedicationAddFragment() {
         // Required empty public constructor
@@ -68,6 +72,8 @@ public class MedicationAddFragment extends Fragment {
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //mCallback.onAddButtonClicked();
+
                 if (mItem.getName() != ""){
                     MedicationDAO medDAO = new MedicationDAO(getActivity());
                     AlarmDAO alarmDAO = new AlarmDAO(getActivity());
@@ -85,7 +91,7 @@ public class MedicationAddFragment extends Fragment {
 
                     MedicationList.getInstance().addMedication(mItem);
                     Log.d("MEDID",String.valueOf(mItem.toString()));
-                    mListener.onButtonClicked();
+                    mCallback.onButtonClicked();
                 }
                 else
                 {
@@ -99,8 +105,10 @@ public class MedicationAddFragment extends Fragment {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //mCallback.onCancelClicked();
+
                 mItem = null;
-                mListener.onButtonClicked();
+                mCallback.onButtonClicked();
             }
         });
 
@@ -108,6 +116,8 @@ public class MedicationAddFragment extends Fragment {
         tx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //mCallback.onNameClicked();
+
                 final EditText input = new EditText(getActivity());
                 input.setSingleLine(true);
                 new AlertDialog.Builder(getActivity())
@@ -221,7 +231,7 @@ public class MedicationAddFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         try {
-            mListener = (OnFragmentInteractionListener) activity;
+            mCallback = (Callback) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -231,7 +241,7 @@ public class MedicationAddFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mCallback = null;
     }
 
     /**
@@ -244,9 +254,7 @@ public class MedicationAddFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
-           public void onButtonClicked();
-    }
+
 
     private void addAlarm(){
         Log.d("NEW", "NEW ALARM FOR " + mItem.getName());

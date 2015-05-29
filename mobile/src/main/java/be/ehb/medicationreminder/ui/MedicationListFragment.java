@@ -238,6 +238,7 @@ public class MedicationListFragment extends ListFragment{
 
     @Override
     public void onResume() {
+
         adapter.notifyDataSetChanged();
         super.onResume();
     }
