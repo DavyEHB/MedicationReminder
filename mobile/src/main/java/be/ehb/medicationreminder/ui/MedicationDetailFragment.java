@@ -38,6 +38,8 @@ import be.ehb.medicationreminder.core.Alarms;
 import be.ehb.medicationreminder.core.DayOfWeek;
 import be.ehb.medicationreminder.core.Medication;
 import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.database.AlarmDAO;
+import be.ehb.medicationreminder.database.MedicationDAO;
 
 /**
  * A fragment representing a single Medication detail screen.
@@ -135,15 +137,15 @@ public class MedicationDetailFragment extends Fragment{
                 public boolean onLongClick(View v) {
                     final EditText input = new EditText(getActivity());
                     input.setText(mItem.getName());
-                    //input.setMaxLines(1);
-                    //input.setLines(1);
                     input.setSingleLine(true);
                     new AlertDialog.Builder(getActivity())
                             .setTitle("Medication name")
                             .setView(input)
                             .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int whichButton) {
+                                    MedicationDAO medicationDAO = new MedicationDAO(getActivity());
                                     mItem.setName(input.getText().toString());
+                                    medicationDAO.update(mItem);
                                     ((TextView) getView().findViewById(R.id.medication_name)).setText(mItem.getName());
                                 }
                             }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -189,7 +191,10 @@ public class MedicationDetailFragment extends Fragment{
                             .setPositiveButton("YES",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            mItem.removeAlarm(mItem.getAlarms().get(position));
+                                            Alarms delAlarm = mItem.getAlarms().get(position);
+                                            AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+                                            alarmDAO.delete(delAlarm);
+                                            mItem.removeAlarm(delAlarm);
                                             adapter.notifyDataSetChanged();
                                         }
                                     })
@@ -219,7 +224,9 @@ public class MedicationDetailFragment extends Fragment{
                     try {
                         final Uri imageUri = returnedIntent.getData();
                         Log.d("REQUEST", String.valueOf(imageUri));
+                        MedicationDAO medicationDAO = new MedicationDAO(getActivity());
                         mItem.setPicture(imageUri.toString());
+                        medicationDAO.update(mItem);
 
                         final InputStream imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(mItem.getPicture()));
                         final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
@@ -241,8 +248,11 @@ public class MedicationDetailFragment extends Fragment{
                     int h = returnedIntent.getIntExtra(TimePickerDialog.ARG_HOUR_ID, 0);
                     int m = returnedIntent.getIntExtra(TimePickerDialog.ARG_MINUTE_ID, 0);
                     Alarms alarm = new Alarms(h,m);
+                    AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+
                     alarm.setDays(returnedIntent.getIntegerArrayListExtra(TimePickerDialog.ARG_DAYS_ID));
                     mItem.addAlarm(alarm);
+                    alarmDAO.insert(alarm);
                     adapter.notifyDataSetChanged();
                 }
                 break;
@@ -251,9 +261,12 @@ public class MedicationDetailFragment extends Fragment{
                     int h = returnedIntent.getIntExtra(TimePickerDialog.ARG_HOUR_ID, 0);
                     int m = returnedIntent.getIntExtra(TimePickerDialog.ARG_MINUTE_ID, 0);
                     Alarms alarm = mItem.getAlarms().get(listpos);
+                    AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+
                     alarm.setDays(returnedIntent.getIntegerArrayListExtra(TimePickerDialog.ARG_DAYS_ID));
                     alarm.setHours(h);
                     alarm.setMinutes(m);
+                    alarmDAO.update(alarm);
                     adapter.notifyDataSetChanged();
                 }
         }

@@ -15,8 +15,10 @@ public abstract class AbstractDAO {
 
     protected SQLiteDatabase db;
     private MedRemSQLiteHelper dbHelper;
+    protected Context context;
 
     public AbstractDAO(Context context){
+        this.context = context;
         dbHelper = new MedRemSQLiteHelper(context);
     }
 
@@ -28,10 +30,57 @@ public abstract class AbstractDAO {
         db = dbHelper.getWritableDatabase();
     }
 
+    public void delete(AbstractDatabaseObject object) {
+        int id = object.getID();
+        this.open();
+        db.delete(this.getTableName(), MedRemSQLiteHelper.COLUMN_ID
+                + " = " + id, null);
+    }
 
-    public abstract ArrayList getAll();
-    public abstract ArrayList getAllByID(int id);
+    public int count() {
+        String selectQuery = "SELECT  * FROM " + this.getTableName();
 
-    protected abstract Object cursorToObject(Cursor cursor);
+        this.open();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        this.close();
+        return cursor.getCount();
+    }
+
+    public ArrayList getAll() {
+        ArrayList<AbstractDatabaseObject> objects = new ArrayList<>();
+
+        String selectQuery = "SELECT  * FROM " + this.getTableName();
+        this.open();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                objects.add(this.cursorToObject(cursor));
+            } while (cursor.moveToNext());
+        }
+        return objects;
+    }
+
+    public AbstractDatabaseObject getByID(int id) {
+        AbstractDatabaseObject object = null;
+        String selectQuery = "SELECT  * FROM " + this.getTableName() + " WHERE " + MedRemSQLiteHelper.COLUMN_ID + " ='" + id + "'";
+        this.open();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+            object = this.cursorToObject(cursor);
+        }
+        return object;
+    }
+
+    public abstract AbstractDatabaseObject insert(AbstractDatabaseObject object);
+    public abstract int update(AbstractDatabaseObject object);
+
+    protected abstract AbstractDatabaseObject cursorToObject(Cursor cursor);
+    protected abstract String getTableName();
+
+
 
 }

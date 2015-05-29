@@ -1,13 +1,17 @@
 package be.ehb.medicationreminder.core;
 
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import be.ehb.medicationreminder.database.AbstractDatabaseObject;
 
 /**
  * Created by davy.van.belle on 6/05/2015.
  */
-public class Alarms{
+public class Alarms extends AbstractDatabaseObject{
 
    // private ArrayList<DayOfWeek> DOW;
 
@@ -15,12 +19,21 @@ public class Alarms{
 
     private int iHours;
     private int iMinutes;
-    private int id;
+    private Medication parent = null;
 
     @SuppressWarnings("unused")
-    private Alarms(){}
+    private Alarms(){
+        super(0);
+    }
+
+    public Alarms(int ID, int hour, int minutes){
+        super(ID);
+        this.iHours = hour;
+        this.iMinutes = minutes;
+      }
 
 	public Alarms(int hour, int minutes){
+        super(0);
         iHours = hour;
         iMinutes = minutes;
         this.DOW = new ArrayList<>();
@@ -35,6 +48,7 @@ public class Alarms{
 
 
     public Alarms(String time){
+        super(0);
         this.DOW = new ArrayList<>();
         this.DOW.add(DayOfWeek.MON);
         this.DOW.add(DayOfWeek.TUE);
@@ -47,8 +61,32 @@ public class Alarms{
     }
 
     public Alarms(String time, ArrayList<DayOfWeek> dow){
+        super(0);
         this.DOW = dow;
         this.setTime(time);
+    }
+
+    public Alarms(int ID, String time, String dow, int parentID) {
+        super(ID);
+        this.setTime(time);
+        this.setDOWs(dow);
+        this.parent = MedicationList.getInstance().getMedicationByID(parentID);
+    }
+
+    public Alarms(int ID, String time, String dow, Medication med) {
+        super(ID);
+        this.setTime(time);
+        this.setDOWs(dow);
+        this.parent = med;
+    }
+
+    private void setDOWs(String dow) {
+        String[] separated = dow.split(" - ");
+        for (int i = 0;i< separated.length;i++)
+        {
+            Log.d("DOW", separated[i]);
+            this.addDay(DayOfWeek.valueOf(separated[i]));
+        }
     }
 
     public ArrayList<DayOfWeek> getDays(){
@@ -96,6 +134,16 @@ public class Alarms{
         this.iMinutes = minutes;
     }
 
+    public void setParent(Medication parent)
+    {
+        this.parent = parent;
+    }
+
+    public Medication getParent()
+    {
+        return this.parent;
+    }
+
     public int getMinutes() {
         return iMinutes;
     }
@@ -110,14 +158,6 @@ public class Alarms{
 
     public void setHours(int Hours) {
         this.iHours = Hours;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setDays(ArrayList<Integer> days)
@@ -155,7 +195,7 @@ public class Alarms{
 
     public String toString()
     {
-        return getTime() + "\t" + DOW;
+        return getTime() + "\t" + printDays() + "\t" + this.parent.getID();
     }
     
     

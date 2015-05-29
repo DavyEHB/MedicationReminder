@@ -13,11 +13,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import java.util.Iterator;
 
 import be.ehb.medicationreminder.R;
 
+import be.ehb.medicationreminder.core.Alarms;
+import be.ehb.medicationreminder.core.Medication;
 import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.database.AlarmDAO;
+import be.ehb.medicationreminder.database.MedicationDAO;
 
 /**
  * A list fragment representing a list of Medications. This fragment
@@ -90,6 +95,18 @@ public class MedicationListFragment extends ListFragment{
         this.setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
+        MedicationDAO medicationDAO = new MedicationDAO(getActivity());
+        AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+
+        MedicationList.getInstance().setMedicationList(medicationDAO.getAll());
+
+        Iterator<Medication> medIT = MedicationList.getInstance().getMedicationList().iterator();
+        while (medIT.hasNext())
+        {
+            Medication nextMed = medIT.next();
+            nextMed.addAlarms(alarmDAO.getAlarmsByMed(nextMed));
+        }
+
         adapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
@@ -125,7 +142,16 @@ public class MedicationListFragment extends ListFragment{
                         .setPositiveButton("YES",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        MedicationList.getInstance().deleteMedication(MedicationList.getInstance().getMedicationList().get(position));
+                                        Medication delMed = MedicationList.getInstance().getMedicationList().get(position);
+                                        MedicationDAO medicationDAO = new MedicationDAO(getActivity());
+                                        AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+                                        Iterator<Alarms> delAlarmsIT = delMed.getAlarms().iterator();
+                                        while (delAlarmsIT.hasNext())
+                                        {
+                                            alarmDAO.delete(delAlarmsIT.next());
+                                        }
+                                        medicationDAO.delete(delMed);
+                                        MedicationList.getInstance().deleteMedication(delMed);
                                         adapter.notifyDataSetChanged();
                                     }
                                 })

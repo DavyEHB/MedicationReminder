@@ -11,12 +11,13 @@ public class MedicationList{
     private ArrayList<Medication> arMedList = null;
     private static MedicationList instance = null;
 
+    /*
     static {
         // Add 3 sample items.
-        Medication m1 = new Medication("Dafalgan",12);
-        Medication m2 = new Medication("Med 2",15);
-        Medication m3 = new Medication("Med 3",78);
-        Medication m4 = new Medication("Med 4",1);
+        Medication m1 = new Medication(12,"Dafalgan");
+        Medication m2 = new Medication(15,"Med 2");
+        Medication m3 = new Medication(78,"Med 3");
+        Medication m4 = new Medication(1,"Med 4");
         getInstance().addMedication(m1);
         getInstance().addMedication(m2);
         getInstance().addMedication(m3);
@@ -40,14 +41,9 @@ public class MedicationList{
         m3.addAlarm(ts5);
         m4.addAlarm(ts6);
         m4.addAlarm(ts1);
-
-
-        /*
-        addItem(new DummyItem("1", "Item 1"));
-        addItem(new DummyItem("2", "Item 2"));
-        addItem(new DummyItem("3", "Item 3"));
-        */
     }
+
+    */
 
     public static MedicationList getInstance(){
         if(instance == null){

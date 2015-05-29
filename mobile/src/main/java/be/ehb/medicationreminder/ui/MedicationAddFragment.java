@@ -35,6 +35,8 @@ import be.ehb.medicationreminder.core.Alarms;
 import be.ehb.medicationreminder.core.DayOfWeek;
 import be.ehb.medicationreminder.core.Medication;
 import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.database.AlarmDAO;
+import be.ehb.medicationreminder.database.MedicationDAO;
 
 public class MedicationAddFragment extends Fragment {
 
@@ -67,7 +69,22 @@ public class MedicationAddFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (mItem.getName() != ""){
+                    MedicationDAO medDAO = new MedicationDAO(getActivity());
+                    AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+                    ArrayList<Alarms> tmpAlarms = (ArrayList<Alarms>) mItem.getAlarms().clone();
+                    mItem.getAlarms().clear();
+                    mItem = medDAO.insert(mItem);
+                    mItem.addAlarms(tmpAlarms);
+                    Iterator<Alarms> alIT = tmpAlarms.iterator();
+                    while (alIT.hasNext())
+                    {
+                        Alarms al = alIT.next();
+                        Log.d("ALARMS",al.toString());
+                        alarmDAO.insert(al);
+                    }
+
                     MedicationList.getInstance().addMedication(mItem);
+                    Log.d("MEDID",String.valueOf(mItem.toString()));
                     mListener.onButtonClicked();
                 }
                 else
@@ -153,10 +170,34 @@ public class MedicationAddFragment extends Fragment {
             }
         };
 
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                addAlarm();
+            }
+        });
+
         lv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                addAlarm();
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
+                alertDialog.setTitle("Delete Alarm")
+                        .setMessage("Do you want to remove this alarm?")
+
+                        .setPositiveButton("YES",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        mItem.removeAlarm(mItem.getAlarms().get(position));
+                                        adapter.notifyDataSetChanged();
+                                    }
+                                })
+                        .setNegativeButton("NO",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
                 return true;
             }
         });

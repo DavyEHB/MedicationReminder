@@ -1,10 +1,13 @@
 package be.ehb.medicationreminder.database;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
+import be.ehb.medicationreminder.core.Alarms;
 import be.ehb.medicationreminder.core.Medication;
 
 /**
@@ -12,55 +15,55 @@ import be.ehb.medicationreminder.core.Medication;
  */
 public class MedicationDAO extends AbstractDAO {
 
-    private String[] allColumns = { MedRemSQLiteHelper.COLUMN_ID,
-            MedRemSQLiteHelper.COLUMN_NAME,MedRemSQLiteHelper.COLUMN_PICTURE };
-
+    private final String TABLE_NAME = MedRemSQLiteHelper.TABLE_MEDICATIONS;
 
     public MedicationDAO(Context context) {
         super(context);
     }
 
     protected Medication cursorToObject(Cursor cursor) {
-        Medication med = new Medication(cursor.getString(1));
-        med.setID(cursor.getInt(0));
-        med.setPicture(cursor.getString(2));
+        AlarmDAO alDAO = new AlarmDAO(this.context);
+        Medication med = new Medication(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+
         return med;
     }
 
     @Override
-    public ArrayList<Medication> getAll() {
-        ArrayList meds = new ArrayList();
-
-          Cursor cursor = db.query(MedRemSQLiteHelper.TABLE_MEDICATIONS,
-                allColumns, null, null, null, null, null);
-
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Medication comment = cursorToObject(cursor);
-            meds.add(comment);
-            cursor.moveToNext();
-        }
-        // make sure to close the cursor
-        cursor.close();
-        return meds;
-
+    protected String getTableName() {
+        return this.TABLE_NAME;
     }
 
     @Override
-    public ArrayList<Medication> getAllByID(int id) {
-        ArrayList meds = new ArrayList();
+    public int update(AbstractDatabaseObject medication) {
+        Medication med = (Medication) medication;
+        ContentValues values = new ContentValues();
+        values.put(MedRemSQLiteHelper.COLUMN_ID, med.getID());
+        values.put(MedRemSQLiteHelper.COLUMN_NAME, med.getName());
+        values.put(MedRemSQLiteHelper.COLUMN_PICTURE,med.getPicture());
 
-        Cursor cursor = db.query(MedRemSQLiteHelper.TABLE_MEDICATIONS,
-                allColumns, null, null, null, null, null);
+        this.open();
+        int ret = db.update(this.TABLE_NAME, values, MedRemSQLiteHelper.COLUMN_ID + " = ?",
+                new String[] { String.valueOf(med.getID()) });
+        this.close();
+        return ret;
+    }
 
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            Medication comment = cursorToObject(cursor);
-            meds.add(comment);
-            cursor.moveToNext();
-        }
-        // make sure to close the cursor
-        cursor.close();
-        return meds;
+
+
+    @Override
+    public Medication insert(AbstractDatabaseObject medication) {
+        Medication med = (Medication) medication;
+
+        ContentValues values = new ContentValues();
+
+        //values.put(MedRemSQLiteHelper.COLUMN_ID, med.getID());
+        values.put(MedRemSQLiteHelper.COLUMN_NAME, med.getName());
+        values.put(MedRemSQLiteHelper.COLUMN_PICTURE,med.getPicture());
+
+        this.open();
+        long insertID = db.insert(this.TABLE_NAME, null, values);
+        med = (Medication) this.getByID((int)insertID);
+        this.close();
+        return med;
     }
 }
