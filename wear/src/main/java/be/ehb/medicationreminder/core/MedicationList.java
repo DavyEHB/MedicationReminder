@@ -8,23 +8,72 @@ import java.util.Iterator;
  */
 public class MedicationList{
 
-    private final ArrayList<Medication> arMedList = new ArrayList<>();
+    private ArrayList<Medication> arMedList = null;
     private static MedicationList instance = null;
 
-    private MedicationList(){}
+    /*
+    static {
+        // Add 3 sample items.
+        Medication m1 = new Medication(12,"Dafalgan");
+        Medication m2 = new Medication(15,"Med 2");
+        Medication m3 = new Medication(78,"Med 3");
+        Medication m4 = new Medication(1,"Med 4");
+        getInstance().addMedication(m1);
+        getInstance().addMedication(m2);
+        getInstance().addMedication(m3);
+        getInstance().addMedication(m4);
 
-// --Commented out by Inspection START (27/05/2015 13:09):
-//    public static MedicationList getInstance(){
-//        if(instance == null){
-//            synchronized (MedicationList.class) {
-//                if(instance == null){
-//                    instance = new MedicationList();
-//                }
-//            }
-//        }
-//        return instance;
-//    }
-// --Commented out by Inspection STOP (27/05/2015 13:09)
+        Alarms ts1 = new Alarms("17:05");
+        Alarms ts2 = new Alarms("17:15");
+        Alarms ts3 = new Alarms("16:05");
+        Alarms ts4 = new Alarms("15:05");
+        Alarms ts5 = new Alarms("16:18");
+        Alarms ts6 = new Alarms("15:59");
+
+        ts1.removeDay(DayOfWeek.MON);
+        ts1.removeDay(DayOfWeek.MON);
+        ts1.removeDay(DayOfWeek.SUN);
+
+        m1.addAlarm(ts1);
+        m1.addAlarm(ts2);
+        m2.addAlarm(ts3);
+        m2.addAlarm(ts4);
+        m3.addAlarm(ts5);
+        m4.addAlarm(ts6);
+        m4.addAlarm(ts1);
+    }
+
+    */
+
+    public static MedicationList getInstance(){
+        if(instance == null){
+            synchronized (MedicationList.class) {
+                if(instance == null){
+                    instance = new MedicationList();
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static MedicationList getInstance(ArrayList<Medication> medications){
+        if(instance == null){
+            synchronized (MedicationList.class) {
+                if(instance == null){
+                    instance = new MedicationList(medications);
+                }
+            }
+        }
+        return instance;
+    }
+
+    private MedicationList(){
+        arMedList = new ArrayList<>();
+    }
+
+    private MedicationList(ArrayList<Medication> meds){
+        arMedList = meds;
+    }
 
     public void addMedication(Medication medication){
         this.arMedList.add(medication);
@@ -44,6 +93,10 @@ public class MedicationList{
 
     public ArrayList<Medication> getMedicationList(){
         return this.arMedList;
+    }
+
+    public void setMedicationList(ArrayList<Medication> medications){
+        this.arMedList = medications;
     }
 
     Medication getMedicationByName(String name){
@@ -68,12 +121,12 @@ public class MedicationList{
         return null;
     }
 
-    public ArrayList<Medication> checkTimeStamps(TimeStamp timestamp){
+    public ArrayList<Medication> checkAlarms(Alarms Alarms){
     	ArrayList<Medication> tList = new ArrayList<Medication>();
         Iterator<Medication> MedIt = arMedList.iterator();
         while (MedIt.hasNext()){
             Medication mNext = MedIt.next();
-            if (mNext.isTimeEqual(timestamp)){
+            if (mNext.isTimeEqual(Alarms)){
                 tList.add(mNext);
             }
         }

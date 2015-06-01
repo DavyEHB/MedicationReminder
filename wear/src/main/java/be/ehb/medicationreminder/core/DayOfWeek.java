@@ -4,6 +4,6 @@
  * Created by davy.van.belle on 6/05/2015.
  */
 public enum DayOfWeek{
-    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
-    THURSDAY, FRIDAY, SATURDAY, ALL
+    MON, TUE, WED,
+    THU, FRI, SAT, SUN
 }

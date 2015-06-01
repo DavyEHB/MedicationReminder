@@ -3,40 +3,46 @@ package be.ehb.medicationreminder.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Medication {
+import be.ehb.medicationreminder.database.AbstractDatabaseObject;
 
-	private int iID;
+public class Medication extends AbstractDatabaseObject {
+
 	private String sName;
 	private String sPicture;
-    private final ArrayList<TimeStamp> tsTimes = new ArrayList<>();
+    private final ArrayList<Alarms> aAlarms = new ArrayList<>();
 
     @SuppressWarnings("unused")
-	private Medication(){}
+	private Medication(){
+        super(0);
+    }
 
     public Medication (String Name){
+        super(0);
         this.sName = Name;
-        this.iID  = 0;
     }
 
-    public Medication (String Name, int ID){
+    public Medication (int ID,String Name){
+        super(ID);
         this.sName = Name;
-        this.iID  = ID;
     }
-    
-    public int getID(){
-        return iID;
+
+    public Medication (int ID,String Name, String Picture)
+    {
+        super(ID);
+        this.sName = Name;
+        this.sPicture = Picture;
     }
-    
-    public void setID(int ID){
-    	this.iID = ID;
-    }
-    
+
     public String getName() {
         return sName;
     }
 
     public void setName(String name) {
         sName = name;
+    }
+
+    public ArrayList<Alarms> getAlarms(){
+        return aAlarms;
     }
 
     public String getPicture() {
@@ -47,17 +53,37 @@ public class Medication {
         sPicture = picture;
     }
 
-    public void addTimeStamp(TimeStamp time){
-        this.tsTimes.add(time);
+    public void addAlarm(Alarms alarm){
+        alarm.setParent(this);
+        this.aAlarms.add(alarm);
     }
 
-    public void addTimeStamp(DayOfWeek dow, String time){
-        TimeStamp tsTemp = new TimeStamp(dow,time);
-        this.tsTimes.add(tsTemp);
+    public void addAlarms(ArrayList<Alarms> alarms){
+        Iterator<Alarms> alIT = alarms.iterator();
+        while (alIT.hasNext()){
+            this.addAlarm(alIT.next());
+        }
     }
 
-    public boolean isTimeEqual(TimeStamp timestamp){
-        Iterator<TimeStamp> itTime = tsTimes.iterator();
+    public void addAlarm(String time){
+        Alarms tsTemp = new Alarms(time);
+        this.addAlarm(tsTemp);
+    }
+
+    public void addAlarm(ArrayList<DayOfWeek> dow, String time){
+        Alarms tsTemp = new Alarms(time,dow);
+        this.addAlarm(tsTemp);
+    }
+
+    public void removeAlarm(Alarms alarm)
+    {
+        alarm.setParent(null);
+        this.aAlarms.remove(alarm);
+    }
+
+
+    public boolean isTimeEqual(Alarms timestamp){
+        Iterator<Alarms> itTime = aAlarms.iterator();
         while (itTime.hasNext()){
             if (itTime.next().equals(timestamp)){
                 return true;
@@ -67,10 +93,15 @@ public class Medication {
     }
     
     public String toString(){
+        /*
     	String sTemp = "ID: ";
-    	sTemp = sTemp + this.iID + "\n";
+    	sTemp = sTemp + this.getID() + "\n";
     	sTemp = sTemp + "\tName: " + this.sName + "\n";
     	sTemp = sTemp + "\tPicture: " + this.sPicture;
     	return sTemp;
+    	*/
+
+
+        return sName;
     }
 }
