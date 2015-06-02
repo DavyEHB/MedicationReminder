@@ -11,7 +11,7 @@ public class MedicationList{
     private ArrayList<Medication> arMedList = null;
     private static MedicationList instance = null;
 
-    /*
+
     static {
         // Add 3 sample items.
         Medication m1 = new Medication(12,"Dafalgan");
@@ -43,7 +43,7 @@ public class MedicationList{
         m4.addAlarm(ts1);
     }
 
-    */
+
 
     public static MedicationList getInstance(){
         if(instance == null){

@@ -45,7 +45,7 @@ public class MedicationListFragment extends ListFragment{
      * The fragment's current callback object, which is notified of list item
      * clicks.
      */
-    private Callbacks mCallbacks = sDummyCallbacks;
+    private Callbacks mCallbacks;
 
     /**
      * The current activated item position. Only used on tablets.
@@ -67,21 +67,6 @@ public class MedicationListFragment extends ListFragment{
         public void onItemSelected(int id);
         public void onAddMedicationFragment();
     }
-
-    /**
-     * A dummy implementation of the {@link Callbacks} interface that does
-     * nothing. Used only when this fragment is not attached to an activity.
-     */
-    private static final Callbacks sDummyCallbacks = new Callbacks() {
-        @Override
-        public void onItemSelected(int id) {
-        }
-
-        @Override
-        public void onAddMedicationFragment() {
-
-        }
-    };
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -184,7 +169,7 @@ public class MedicationListFragment extends ListFragment{
         super.onDetach();
 
         // Reset the active callbacks interface to the dummy implementation.
-        mCallbacks = sDummyCallbacks;
+       // mCallbacks = sDummyCallbacks;
     }
 
     @Override
