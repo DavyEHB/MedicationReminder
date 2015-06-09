@@ -3,7 +3,7 @@ package be.ehb.medicationreminder.database;
 /**
  * Created by davy.van.belle on 28/05/2015.
  */
-public abstract class AbstractDatabaseObject {
+public abstract class AbstractDatabaseObject{
 
     private int id;
 

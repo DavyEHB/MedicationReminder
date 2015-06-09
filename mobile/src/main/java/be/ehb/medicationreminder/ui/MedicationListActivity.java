@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
+import android.view.View;
 
 
 import be.ehb.medicationreminder.R;
@@ -93,4 +94,5 @@ public class MedicationListActivity extends Activity
         Intent addIntent = new Intent(this, MedicationAddActivity.class);
         startActivityForResult(addIntent, MedicationAddActivity.ADD_NEW_MED);
     }
+
 }

@@ -1,5 +1,8 @@
 package be.ehb.medicationreminder.core;
 
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -7,8 +10,9 @@ import be.ehb.medicationreminder.database.AbstractDatabaseObject;
 
 public class Medication extends AbstractDatabaseObject {
 
-	private String sName;
-	private String sPicture;
+    private static final int MAX_WIDTH = 600 ;
+    private String sName;
+	private Bitmap Picture;
     private final ArrayList<Alarms> aAlarms = new ArrayList<>();
 
     @SuppressWarnings("unused")
@@ -26,11 +30,11 @@ public class Medication extends AbstractDatabaseObject {
         this.sName = Name;
     }
 
-    public Medication (int ID,String Name, String Picture)
+    public Medication (int ID,String Name, Bitmap picture)
     {
         super(ID);
         this.sName = Name;
-        this.sPicture = Picture;
+        this.Picture = picture;
     }
 
     public String getName() {
@@ -45,12 +49,12 @@ public class Medication extends AbstractDatabaseObject {
         return aAlarms;
     }
 
-    public String getPicture() {
-        return sPicture;
+    public Bitmap getPicture() {
+        return Picture;
     }
 
-    public void setPicture(String picture) {
-        sPicture = picture;
+    public void setPicture(Bitmap picture) {
+        Picture = getResizedBitmap(picture,MAX_WIDTH);
     }
 
     public void addAlarm(Alarms alarm){
@@ -97,11 +101,27 @@ public class Medication extends AbstractDatabaseObject {
     	String sTemp = "ID: ";
     	sTemp = sTemp + this.getID() + "\n";
     	sTemp = sTemp + "\tName: " + this.sName + "\n";
-    	sTemp = sTemp + "\tPicture: " + this.sPicture;
+    	sTemp = sTemp + "\tPicture: " + this.Picture;
     	return sTemp;
     	*/
 
 
         return sName;
+    }
+
+    public Bitmap getResizedBitmap(Bitmap bm, int maxWidth) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        float scale = ((float) maxWidth) / width;
+
+        // CREATE A MATRIX FOR THE MANIPULATION
+        Matrix matrix = new Matrix();
+        // RESIZE THE BIT MAP
+        matrix.postScale(scale, scale);
+
+        // "RECREATE" THE NEW BITMAP
+        Bitmap resizedBitmap = Bitmap.createBitmap(
+                bm, 0, 0, width, height, matrix, false);
+        return resizedBitmap;
     }
 }

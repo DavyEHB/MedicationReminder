@@ -27,7 +27,7 @@ class MedRemSQLiteHelper extends SQLiteOpenHelper {
     private static final String MEDICATION_TABLE_CREATE = "create table "
             + TABLE_MEDICATIONS + "(" + COLUMN_ID
             + " integer primary key autoincrement, " + COLUMN_NAME
-            + " text not null, " + COLUMN_PICTURE + " text);";
+            + " text not null, " + COLUMN_PICTURE + " blob);";
 
     private static final String ALARM_TABLE_CREATE = "create table "
             + TABLE_ALARMS + "(" + COLUMN_ID

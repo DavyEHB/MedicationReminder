@@ -2,4 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/new_med"
         android:title="@string/menu_add_meds"/>
+    <item android:id="@+id/sync_watch"
+        android:title="@string/sync_watch"/>
 </menu>

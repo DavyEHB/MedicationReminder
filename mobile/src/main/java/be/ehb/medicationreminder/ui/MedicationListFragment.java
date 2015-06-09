@@ -14,8 +14,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Iterator;
 
+import be.ehb.medicationreminder.JSON.AlarmJSON;
 import be.ehb.medicationreminder.R;
 
 import be.ehb.medicationreminder.core.Alarms;
@@ -80,10 +84,14 @@ public class MedicationListFragment extends ListFragment{
         this.setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
+
+
         MedicationDAO medicationDAO = new MedicationDAO(getActivity());
         AlarmDAO alarmDAO = new AlarmDAO(getActivity());
 
         MedicationList.getInstance().setMedicationList(medicationDAO.getAll());
+
+
 
         Iterator<Medication> medIT = MedicationList.getInstance().getMedicationList().iterator();
         while (medIT.hasNext())
@@ -91,6 +99,17 @@ public class MedicationListFragment extends ListFragment{
             Medication nextMed = medIT.next();
             nextMed.addAlarms(alarmDAO.getAlarmsByMed(nextMed));
         }
+
+        /*
+        try {
+            JSONObject json = AlarmJSON.getJSON(MedicationList.getInstance().getMedicationList().get(0).getAlarms());
+            Log.d("JSON", json.toString() );
+            Log.d("JSON", AlarmJSON.getList(json).get(0).printDays());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        */
 
         adapter = new ArrayAdapter<>(
                 getActivity(),
@@ -216,6 +235,9 @@ public class MedicationListFragment extends ListFragment{
                 Log.d("NEW", "NEW MEDS");
                 mCallbacks.onAddMedicationFragment();
                 return true;
+            case R.id.sync_watch:
+                onSyncWatchClick(getView());
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -226,5 +248,10 @@ public class MedicationListFragment extends ListFragment{
 
         adapter.notifyDataSetChanged();
         super.onResume();
+    }
+
+
+    public void onSyncWatchClick(View view){
+        Log.d("MENU","Sync watch");
     }
 }

@@ -26,6 +26,11 @@ public class Alarms extends AbstractDatabaseObject{
         super(0);
     }
 
+    public Alarms (int ID)
+    {
+        super(ID);
+    }
+
     public Alarms(int ID, int hour, int minutes){
         super(ID);
         this.iHours = hour;
@@ -69,18 +74,18 @@ public class Alarms extends AbstractDatabaseObject{
     public Alarms(int ID, String time, String dow, int parentID) {
         super(ID);
         this.setTime(time);
-        this.setDOWs(dow);
+        this.setDays(dow);
         this.parent = MedicationList.getInstance().getMedicationByID(parentID);
     }
 
     public Alarms(int ID, String time, String dow, Medication med) {
         super(ID);
         this.setTime(time);
-        this.setDOWs(dow);
+        this.setDays(dow);
         this.parent = med;
     }
 
-    private void setDOWs(String dow) {
+    public void setDays(String dow) {
         String[] separated = dow.split(" - ");
         for (int i = 0;i< separated.length;i++)
         {
@@ -197,6 +202,6 @@ public class Alarms extends AbstractDatabaseObject{
     {
         return getTime() + "\t" + printDays() + "\t" + this.parent.getID();
     }
-    
-    
+
+
 }

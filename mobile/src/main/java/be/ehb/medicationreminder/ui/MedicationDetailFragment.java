@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -108,15 +109,7 @@ public class MedicationDetailFragment extends Fragment{
             i.setImageResource(R.drawable.no_image);
 
             if (mItem.getPicture() != null) {
-                String uri = mItem.getPicture();
-                final InputStream imageStream;
-                try {
-                    imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(uri));
-                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                    i.setImageBitmap(selectedImage);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                i.setImageBitmap(mItem.getPicture());
             }
 
             i.setAdjustViewBounds(true); // set the ImageView bounds to match the Drawable's dimensions
@@ -224,15 +217,17 @@ public class MedicationDetailFragment extends Fragment{
                     try {
                         final Uri imageUri = returnedIntent.getData();
                         Log.d("REQUEST", String.valueOf(imageUri));
+
+                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(imageUri);
+                        Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+
+                        mItem.setPicture(selectedImage);
+
                         MedicationDAO medicationDAO = new MedicationDAO(getActivity());
-                        mItem.setPicture(imageUri.toString());
                         medicationDAO.update(mItem);
 
-                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(mItem.getPicture()));
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-
                         ImageView i = (ImageView) getView().findViewById(R.id.medication_image);
-                        i.setImageBitmap(selectedImage);
+                        i.setImageBitmap(mItem.getPicture());
 
 
                     } catch (FileNotFoundException e) {

@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -142,15 +143,7 @@ public class MedicationAddFragment extends Fragment {
         i.setImageResource(R.drawable.no_image);
 
         if (mItem.getPicture() != null) {
-            String uri = mItem.getPicture();
-            final InputStream imageStream;
-            try {
-                imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(uri));
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                i.setImageBitmap(selectedImage);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+            i.setImageBitmap(mItem.getPicture());
         }
 
         i.setAdjustViewBounds(true); // set the ImageView bounds to match the Drawable's dimensions
@@ -301,22 +294,20 @@ public class MedicationAddFragment extends Fragment {
                 if (resultCode == Activity.RESULT_OK) {
 
                     try {
-                        final Uri imageUri = returnedIntent.getData();
-                        Log.d("REQUEST", String.valueOf(imageUri));
-                        mItem.setPicture(imageUri.toString());
+                        Uri selectedImage = returnedIntent.getData();
+                        InputStream imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(selectedImage.toString()));
+                        Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+                        Log.d("FILE", selectedImage.toString());
 
-                        final InputStream imageStream = getActivity().getContentResolver().openInputStream(Uri.parse(mItem.getPicture()));
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                        mItem.setPicture(bitmap);
 
                         ImageView i = (ImageView) getView().findViewById(R.id.new_image);
-                        i.setImageBitmap(selectedImage);
-
+                        Log.d("FILE", i.toString());
+                        i.setImageBitmap(mItem.getPicture());
 
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
-
-
                 }
                 break;
 

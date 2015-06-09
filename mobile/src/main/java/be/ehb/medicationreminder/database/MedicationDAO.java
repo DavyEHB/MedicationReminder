@@ -3,7 +3,10 @@ package be.ehb.medicationreminder.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -23,7 +26,7 @@ public class MedicationDAO extends AbstractDAO {
 
     protected Medication cursorToObject(Cursor cursor) {
         AlarmDAO alDAO = new AlarmDAO(this.context);
-        Medication med = new Medication(Integer.parseInt(cursor.getString(0)), cursor.getString(1), cursor.getString(2));
+        Medication med = new Medication(Integer.parseInt(cursor.getString(0)), cursor.getString(1), DbUtility.getImage(cursor.getBlob(2)));
 
         return med;
     }
@@ -39,7 +42,7 @@ public class MedicationDAO extends AbstractDAO {
         ContentValues values = new ContentValues();
         values.put(MedRemSQLiteHelper.COLUMN_ID, med.getID());
         values.put(MedRemSQLiteHelper.COLUMN_NAME, med.getName());
-        values.put(MedRemSQLiteHelper.COLUMN_PICTURE,med.getPicture());
+        values.put(MedRemSQLiteHelper.COLUMN_PICTURE,DbUtility.getBytes(med.getPicture()));
 
         this.open();
         int ret = db.update(this.TABLE_NAME, values, MedRemSQLiteHelper.COLUMN_ID + " = ?",
@@ -58,7 +61,7 @@ public class MedicationDAO extends AbstractDAO {
 
         //values.put(MedRemSQLiteHelper.COLUMN_ID, med.getID());
         values.put(MedRemSQLiteHelper.COLUMN_NAME, med.getName());
-        values.put(MedRemSQLiteHelper.COLUMN_PICTURE,med.getPicture());
+        values.put(MedRemSQLiteHelper.COLUMN_PICTURE,DbUtility.getBytes(med.getPicture()));
 
         this.open();
         long insertID = db.insert(this.TABLE_NAME, null, values);
