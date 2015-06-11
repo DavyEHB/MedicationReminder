@@ -4,7 +4,7 @@
     android:layout_marginRight="16dp" android:baselineAligned="false"
     android:divider="?android:attr/dividerHorizontal" android:orientation="horizontal"
     android:showDividers="middle"
-    tools:context="be.ehb.medicationreminder.ui.MedicationListActivity">
+    tools:context="be.ehb.medicationreminder.mobile.UI.MedicationListActivity">
 
     <!--
     This layout is a two-pane layout for the Medications
@@ -13,7 +13,7 @@
     -->
 
     <fragment android:id="@+id/medication_list"
-        android:name="be.ehb.medicationreminder.ui.MedicationListFragment"
+        android:name="be.ehb.medicationreminder.mobile.UI.MedicationListFragment"
         android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
         tools:layout="@layout/fragment_medication_detail" />
 

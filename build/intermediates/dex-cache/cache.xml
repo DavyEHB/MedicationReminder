@@ -170,6 +170,13 @@
         <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\release\classes-d0d84538c57eb5a3572c8fe0d15c5348b354d825.jar" />
     </item>
     <item
+        jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\MedicationReminder\common\unspecified\classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="6ce9aeb35d42f13caff77ed3d23c1f4e89672de6">
+        <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-ebd935a45636aebdad83d7cb43d6620b8fe9195a.jar" />
+    </item>
+    <item
         jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\21.0.0\classes.jar"
         jumboMode="false"
         revision="21.1.2"
