@@ -1,4 +1,4 @@
-package be.ehb.medicationreminder.UserInterface;
+package be.ehb.medicationreminder.UI;
 
 
 

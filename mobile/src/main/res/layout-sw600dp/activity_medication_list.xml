@@ -13,7 +13,7 @@
     -->
 
     <fragment android:id="@+id/medication_list"
-        android:name="be.ehb.medicationreminder.UserInterface.MedicationListFragment"
+        android:name="be.ehb.medicationreminder.UI.MedicationListFragment"
         android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
         tools:layout="@layout/fragment_medication_detail"/>
 
