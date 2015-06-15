@@ -1,10 +1,12 @@
-package be.ehb.medicationsreminder;
+package be.ehb.medicationreminder.UI;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.widget.TextView;
+
+import be.ehb.medicationsreminder.R;
 
 public class MainActivity extends Activity {
 
