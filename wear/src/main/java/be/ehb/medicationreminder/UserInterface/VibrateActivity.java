@@ -1,4 +1,4 @@
-package be.ehb.medicationreminder.UI;
+package be.ehb.medicationreminder.UserInterface;
 
 import android.app.Activity;
 import android.os.Bundle;
