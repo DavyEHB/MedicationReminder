@@ -1,4 +1,4 @@
-package be.ehb.medicationreminder.wear.UI;
+package be.ehb.medicationreminder.UI;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,12 +8,12 @@ import android.view.View;
 import android.view.WindowInsets;
 import android.widget.TextView;
 
-import be.ehb.medicationreminder.R;
 import be.ehb.medicationreminder.core.Medication;
 import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationsreminder.R;
 
 
-public class MainActivity extends Activity {
+public class VibrateActivity extends Activity {
 
     private TextView mTextView;
 
@@ -22,7 +22,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_vibrate);
+
+        Medication med1 = new Medication("Testtt");
+        medicationList.addMedication(med1);
+
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
@@ -31,7 +35,7 @@ public class MainActivity extends Activity {
 
                 Medication mItem = medicationList.getMedicationList().get(0);
 
-                //mTextView.setText(mItem.getName());
+                mTextView.setText(mItem.getName());
 
                 Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 if (vib.hasVibrator())

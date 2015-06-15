@@ -8,7 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".mobile.UI.MedicationListActivity"
+            android:name=".UI.MedicationListActivity"
             android:label="@string/title_medication_list" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,20 +17,16 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".mobile.UI.MedicationDetailActivity"
+            android:name=".UI.MedicationDetailActivity"
             android:label="@string/title_medication_detail"
-            android:parentActivityName=".mobile.UI.MedicationListActivity" >
+            android:parentActivityName=".UI.MedicationListActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".mobile.UI.MedicationListActivity" />
+                android:value=".UI.MedicationListActivity" />
         </activity>
         <activity
-            android:name=".mobile.UI.MedicationAddActivity"
+            android:name=".UI.MedicationAddActivity"
             android:label="@string/title_activity_medication_add" >
-        </activity>
-        <activity
-            android:name=".mobile.UI.SettingsActivity"
-            android:label="@string/title_activity_settings" >
         </activity>
     </application>
 

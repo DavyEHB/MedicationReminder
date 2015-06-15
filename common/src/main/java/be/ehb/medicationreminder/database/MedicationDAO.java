@@ -1,4 +1,4 @@
-package be.ehb.medicationreminder.mobile.database;
+package be.ehb.medicationreminder.database;
 
 import android.content.ContentValues;
 import android.content.Context;
