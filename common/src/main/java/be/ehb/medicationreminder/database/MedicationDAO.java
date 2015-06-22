@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import java.util.ArrayList;
+
 import be.ehb.medicationreminder.core.AbstractDatabaseObject;
 import be.ehb.medicationreminder.core.Medication;
 
@@ -63,5 +65,15 @@ public class MedicationDAO extends AbstractDAO {
         med = (Medication) this.getByID((int)insertID);
         this.close();
         return med;
+    }
+
+    @Override
+    public ArrayList<Medication> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    public Medication getByID(int id) {
+        return (Medication) super.getByID(id);
     }
 }

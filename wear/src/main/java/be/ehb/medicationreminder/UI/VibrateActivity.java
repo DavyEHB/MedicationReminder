@@ -9,7 +9,7 @@ import android.view.WindowInsets;
 import android.widget.TextView;
 
 import be.ehb.medicationreminder.core.Medication;
-import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationsreminder.R;
 
 
@@ -17,7 +17,8 @@ public class VibrateActivity extends Activity {
 
     private TextView mTextView;
 
-    MedicationList medicationList = MedicationList.getInstance();
+
+    MedicationMap medicationMap = MedicationMap.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,7 @@ public class VibrateActivity extends Activity {
         setContentView(R.layout.activity_vibrate);
 
         Medication med1 = new Medication("Testtt");
-        medicationList.addMedication(med1);
+        //medicationList.addMedication(med1);
 
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
@@ -33,9 +34,9 @@ public class VibrateActivity extends Activity {
             public void onLayoutInflated(WatchViewStub stub) {
                 mTextView = (TextView) stub.findViewById(R.id.text);
 
-                Medication mItem = medicationList.getMedicationList().get(0);
+               // Medication mItem = medicationList.getMedicationList().get(0);
 
-                mTextView.setText(mItem.getName());
+               // mTextView.setText(mItem.getName());
 
                 Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
                 if (vib.hasVibrator())

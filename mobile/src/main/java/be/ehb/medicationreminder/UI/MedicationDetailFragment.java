@@ -36,7 +36,8 @@ import be.ehb.medicationreminder.R;
 import be.ehb.medicationreminder.core.Alarms;
 import be.ehb.medicationreminder.core.DayOfWeek;
 import be.ehb.medicationreminder.core.Medication;
-import be.ehb.medicationreminder.core.MedicationList;
+//import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationreminder.database.AlarmDAO;
 import be.ehb.medicationreminder.database.MedicationDAO;
 
@@ -67,6 +68,8 @@ public class MedicationDetailFragment extends Fragment{
 
     private int listpos;
 
+    private MedicationMap mediMap = null;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -84,8 +87,9 @@ public class MedicationDetailFragment extends Fragment{
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
-            mItem = MedicationList.getInstance().getMedicationList().get(getArguments().getInt(ARG_ITEM_ID));
+            mediMap = MedicationMap.getInstance();
+            mItem = mediMap.get(getArguments().getInt(ARG_ITEM_ID));
+            //mItem = MedicationList.getInstance().getMedicationList().get(getArguments().getInt(ARG_ITEM_ID));
         }
         super.onCreate(savedInstanceState);
     }

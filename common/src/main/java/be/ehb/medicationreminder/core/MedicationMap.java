@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.TreeMap;
 
@@ -114,5 +115,28 @@ public class MedicationMap extends TreeMap<Integer,Medication> {
         {
             this.put(med);
         }
+    }
+
+    public Medication getNextMedication(Calendar now)
+    {
+        Medication nextMed = null;
+        Calendar nextAlarm = null;
+        for (Entry<Integer,Medication> entry : this.entrySet()) {
+            Medication tMed = entry.getValue();
+            Calendar tCal = tMed.getNextAlarm(now);
+            if (nextMed == null) {
+                nextMed = tMed;
+                nextAlarm = tCal;
+            }
+            if (nextAlarm.after(tCal))
+            {
+                nextAlarm = tCal;
+                nextMed = tMed;
+            }
+        }
+        Log.d(TAG,"Current time: " + now.getTime());
+        Log.d(TAG,"Next alarm: " + nextAlarm.getTime());
+        Log.d(TAG,"Next med name: " +nextMed.getID());
+        return nextMed;
     }
 }

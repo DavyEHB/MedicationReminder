@@ -2,14 +2,17 @@ package be.ehb.medicationreminder.core;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 
 public class Medication extends AbstractDatabaseObject {
 
     private static final int MAX_WIDTH = 600 ;
+    private static final String TAG = "Medication";
     private String sName;
 	private Bitmap Picture;
     private final ArrayList<Alarms> aAlarms = new ArrayList<>();
@@ -122,5 +125,25 @@ public class Medication extends AbstractDatabaseObject {
         Bitmap resizedBitmap = Bitmap.createBitmap(
                 bm, 0, 0, width, height, matrix, false);
         return resizedBitmap;
+    }
+
+    public Calendar getNextAlarm(Calendar now)
+    {
+        Calendar next = null;
+        Alarms nextAlarm = null;
+        for (Alarms alarm : this.aAlarms)
+        {
+            Calendar temp = alarm.getNextAlarm(now);
+            if (next == null)
+            {
+                next = temp;
+                nextAlarm = alarm;
+            }
+            if (temp.before(next))
+            {
+                next = temp;
+            }
+        }
+        return next;
     }
 }

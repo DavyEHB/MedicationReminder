@@ -6,16 +6,18 @@ package be.ehb.medicationreminder.core;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 
 /**
  * Created by davy.van.belle on 6/05/2015.
  */
 public class Alarms extends AbstractDatabaseObject{
+    private static final String TAG = "Alarms";
 
-   // private ArrayList<DayOfWeek> DOW;
+    // private ArrayList<DayOfWeek> DOW;
 
-    private ArrayList<DayOfWeek> DOW = new ArrayList<DayOfWeek>();
+    private ArrayList<DayOfWeek> DOW = new ArrayList<>();
 
     private int iHours;
     private int iMinutes;
@@ -75,7 +77,7 @@ public class Alarms extends AbstractDatabaseObject{
         super(ID);
         this.setTime(time);
         this.setDays(dow);
-        this.parent = MedicationList.getInstance().getMedicationByID(parentID);
+        this.parent = MedicationMap.getInstance().get(parentID);
     }
 
     public Alarms(int ID, String time, String dow, Medication med) {
@@ -203,5 +205,52 @@ public class Alarms extends AbstractDatabaseObject{
         return getTime() + "\t" + printDays() + "\t" + this.parent.getID();
     }
 
+    public Calendar getNextAlarm(Calendar now)
+    {
 
+        int nextDay = 8;
+        now.set(Calendar.SECOND,15);
+        Calendar tTime = (Calendar) now.clone();
+
+        //Covert to Monday = 1 Sunday = 7
+        int day_of_week = now.get(Calendar.DAY_OF_WEEK);
+        --day_of_week;
+        if (day_of_week == 0) day_of_week = 7;
+
+        tTime.set(Calendar.HOUR,iHours);
+        tTime.set(Calendar.MINUTE,iMinutes);
+        tTime.set(Calendar.SECOND,0);
+
+        for (DayOfWeek dow : DOW)
+        {
+            int diffDay = dow.ordinal() + 1 - day_of_week;
+            if(diffDay < 0){
+                diffDay = diffDay + 7;
+            }
+
+            if (nextDay > diffDay) {
+                nextDay = diffDay;
+            }
+        }
+
+        if (tTime.before(now))
+        {
+            ++day_of_week;
+            nextDay = 8;
+            for (DayOfWeek dow : DOW)
+            {
+                int diffDay = dow.ordinal() + 1 - day_of_week;
+                if(diffDay < 0){
+                    diffDay = diffDay + 7;
+                }
+
+                if (nextDay > diffDay) {
+                    nextDay = diffDay;
+                }
+            }
+            ++nextDay;
+        }
+        tTime.add(Calendar.DAY_OF_WEEK,nextDay);
+        return tTime;
+    }
 }

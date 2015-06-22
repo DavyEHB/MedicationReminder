@@ -39,6 +39,16 @@ public class AlarmDAO extends AbstractDAO {
     }
 
     @Override
+    public ArrayList<Alarms> getAll() {
+        return super.getAll();
+    }
+
+    @Override
+    public Alarms getByID(int id) {
+        return (Alarms) super.getByID(id);
+    }
+
+    @Override
     public int update(AbstractDatabaseObject object) {
         Alarms alarm = (Alarms) object;
         ContentValues values = new ContentValues();

@@ -14,11 +14,6 @@
         <activity
             android:name="be.ehb.medicationreminder.UI.VibrateActivity"
             android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="be.ehb.medicationreminder.UI.MainActivity"
@@ -28,6 +23,25 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name="android.support.wearable.activity.ConfirmationActivity">
+        </activity>
+
+        <service
+            android:name="be.ehb.medicationreminder.service.DataLayerListenerService"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="be.ehb.medicationreminder.UI.ShowMedActivity"
+            android:label="@string/title_activity_show_med" >
+
         </activity>
     </application>
 

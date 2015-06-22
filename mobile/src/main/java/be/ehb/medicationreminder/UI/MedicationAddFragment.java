@@ -34,7 +34,8 @@ import be.ehb.medicationreminder.R;
 import be.ehb.medicationreminder.core.Alarms;
 import be.ehb.medicationreminder.core.DayOfWeek;
 import be.ehb.medicationreminder.core.Medication;
-import be.ehb.medicationreminder.core.MedicationList;
+//import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationreminder.database.AlarmDAO;
 import be.ehb.medicationreminder.database.MedicationDAO;
 
@@ -50,6 +51,8 @@ public class MedicationAddFragment extends Fragment {
 
     private ArrayAdapter adapter = null;
 
+    private MedicationMap mediMap = null;
+
     public interface Callback {
         public void onButtonClicked();
     }
@@ -61,6 +64,7 @@ public class MedicationAddFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mediMap = MedicationMap.getInstance();
         mItem = new Medication("");
     }
 
@@ -91,7 +95,8 @@ public class MedicationAddFragment extends Fragment {
                         alarmDAO.insert(al);
                     }
 
-                    MedicationList.getInstance().addMedication(mItem);
+                    mediMap.put(mItem);
+                    //MedicationList.getInstance().addMedication(mItem);
                     Log.d("MEDID",String.valueOf(mItem.toString()));
                     mCallback.onButtonClicked();
                 }

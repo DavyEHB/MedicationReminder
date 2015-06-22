@@ -14,14 +14,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 
 import be.ehb.medicationreminder.R;
 
 
 import be.ehb.medicationreminder.core.Alarms;
 import be.ehb.medicationreminder.core.Medication;
-import be.ehb.medicationreminder.core.MedicationList;
+import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationreminder.database.AlarmDAO;
 import be.ehb.medicationreminder.database.MedicationDAO;
 
@@ -41,6 +43,7 @@ public class MedicationListFragment extends ListFragment {
      * activated item position. Only used on tablets.
      */
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
+    private static final String TAG = "MED_LIST_FRAG";
 
     /**
      * The fragment's current callback object, which is notified of list item
@@ -53,6 +56,8 @@ public class MedicationListFragment extends ListFragment {
      */
     private int mActivatedPosition = ListView.INVALID_POSITION;
     private ArrayAdapter adapter = null;
+
+    private MedicationMap mediMap = null;
 
 /*
     @Override
@@ -86,20 +91,26 @@ public class MedicationListFragment extends ListFragment {
         this.setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
-
-
+        mediMap = MedicationMap.getInstance();
         MedicationDAO medicationDAO = new MedicationDAO(getActivity());
         AlarmDAO alarmDAO = new AlarmDAO(getActivity());
+        Log.d(TAG,"Loading Database");
+        mediMap.putAll(medicationDAO.getAll());
 
-        MedicationList.getInstance().setMedicationList(medicationDAO.getAll());
+        for (Map.Entry<Integer,Medication> entry : mediMap.entrySet())
+        {
+            Medication tMed = entry.getValue();
+            tMed.addAlarms(alarmDAO.getAlarmsByMed(tMed));
+        }
 
+/*
         Iterator<Medication> medIT = MedicationList.getInstance().getMedicationList().iterator();
         while (medIT.hasNext())
         {
             Medication nextMed = medIT.next();
             nextMed.addAlarms(alarmDAO.getAlarmsByMed(nextMed));
         }
-
+*/
         /*
         try {
             JSONObject json = AlarmJSON.getJSON(MedicationList.getInstance().getMedicationList().get(0).getAlarms());
@@ -109,15 +120,22 @@ public class MedicationListFragment extends ListFragment {
             e.printStackTrace();
         }
 
-        */
-
-        adapter = new ArrayAdapter<>(
+*/
+        adapter = new TreeMapAdapter(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                MedicationList.getInstance().getMedicationList());
+                mediMap
+                );
         setListAdapter(adapter);
-
+/*
+        adapter = new ArrayAdapter<>(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,mediMap.values().toArray(new Medication[mediMap.size()]));
+                //mediMap.getInstance().getMedicationList());
+        setListAdapter(adapter);
+*/
     }
 
     @Override
@@ -138,7 +156,9 @@ public class MedicationListFragment extends ListFragment {
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, final long id) {
+                Log.d(TAG, "Item position: " + String.valueOf(position));
+                Log.d(TAG, "Item id: " + String.valueOf(id));
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(getActivity());
                 alertDialog.setTitle("Delete Medication")
                         .setMessage("Do you want to remove this medication?")
@@ -146,7 +166,8 @@ public class MedicationListFragment extends ListFragment {
                         .setPositiveButton("YES",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Medication delMed = MedicationList.getInstance().getMedicationList().get(position);
+                                        //Medication delMed = MedicationList.getInstance().getMedicationList().get(position);
+                                        Medication delMed = mediMap.get((int) id);
                                         MedicationDAO medicationDAO = new MedicationDAO(getActivity());
                                         AlarmDAO alarmDAO = new AlarmDAO(getActivity());
                                         Iterator<Alarms> delAlarmsIT = delMed.getAlarms().iterator();
@@ -155,7 +176,16 @@ public class MedicationListFragment extends ListFragment {
                                             alarmDAO.delete(delAlarmsIT.next());
                                         }
                                         medicationDAO.delete(delMed);
-                                        MedicationList.getInstance().deleteMedication(delMed);
+                                        mediMap.remove(delMed);
+
+                                        //MedicationList.getInstance().deleteMedication(delMed);
+                                        adapter = new TreeMapAdapter(
+                                                getActivity(),
+                                                android.R.layout.simple_list_item_activated_1,
+                                                android.R.id.text1,
+                                                mediMap
+                                        );
+                                        setListAdapter(adapter);
                                         adapter.notifyDataSetChanged();
                                     }
                                 })
@@ -197,7 +227,7 @@ public class MedicationListFragment extends ListFragment {
 
         // Notify the active callbacks interface (the activity, if the
         // fragment is attached to one) that an item has been selected.
-        mCallbacks.onItemSelected(position);
+        mCallbacks.onItemSelected((int)id);
     }
 
 
@@ -245,7 +275,13 @@ public class MedicationListFragment extends ListFragment {
 
     @Override
     public void onResume() {
-
+        adapter = new TreeMapAdapter(
+                getActivity(),
+                android.R.layout.simple_list_item_activated_1,
+                android.R.id.text1,
+                mediMap
+        );
+        setListAdapter(adapter);
         adapter.notifyDataSetChanged();
         super.onResume();
     }
