@@ -117,7 +117,7 @@
         jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\exploded-aar\MedicationReminder\common\unspecified\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="5b459bd18e40b0998ef2ae9dc1363700afb8f650">
+        sha1="cb7cf927cab81a65b46b01269475df1b81306612">
         <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\wear\build\intermediates\pre-dexed\debug\classes-c0c549bef41eab0985074f35fa5a5ccd546d9271.jar" />
     </item>
     <item
@@ -201,7 +201,7 @@
         jar="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\exploded-aar\MedicationReminder\common\unspecified\classes.jar"
         jumboMode="false"
         revision="20.0.0"
-        sha1="4f04158828443c20fd8c7257a7a873472fc021bc">
+        sha1="9ceb233879191828b18f5d5c4784ee5c1011d3c2">
         <dex dex="C:\Users\davy.van.belle\AndroidStudioProjects\MedicationReminder\mobile\build\intermediates\pre-dexed\debug\classes-ebd935a45636aebdad83d7cb43d6620b8fe9195a.jar" />
     </item>
     <item

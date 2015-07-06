@@ -26,12 +26,12 @@ class MedRemSQLiteHelper extends SQLiteOpenHelper {
     // Database creation sql statement
     private static final String MEDICATION_TABLE_CREATE = "create table "
             + TABLE_MEDICATIONS + "(" + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_NAME
+            + " integer primary key, " + COLUMN_NAME
             + " text not null, " + COLUMN_PICTURE + " blob);";
 
     private static final String ALARM_TABLE_CREATE = "create table "
             + TABLE_ALARMS + "(" + COLUMN_ID
-            + " integer primary key autoincrement, " + COLUMN_TIME
+            + " integer primary key, " + COLUMN_TIME
             + " text, " + COLUMN_DAYS + " text, " + COLUMN_MED_ID + " integer);";
 
     public MedRemSQLiteHelper(Context context) {

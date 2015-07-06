@@ -1,10 +1,5 @@
 package be.ehb.medicationreminder.core;
 
-
-
-
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -12,34 +7,32 @@ import java.util.Iterator;
 /**
  * Created by davy.van.belle on 6/05/2015.
  */
-public class Alarms extends AbstractDatabaseObject{
-    private static final String TAG = "Alarms";
-
-    // private ArrayList<DayOfWeek> DOW;
+public class Alarm extends AbstractDatabaseObject{
+    private static final String TAG = "ALARM";
 
     private ArrayList<DayOfWeek> DOW = new ArrayList<>();
 
     private int iHours;
     private int iMinutes;
-    private Medication parent = null;
+    private int parentId = 0;
 
     @SuppressWarnings("unused")
-    private Alarms(){
+    private Alarm(){
         super(0);
     }
 
-    public Alarms (int ID)
+    public Alarm(int ID)
     {
         super(ID);
     }
 
-    public Alarms(int ID, int hour, int minutes){
+    public Alarm(int ID, int hour, int minutes){
         super(ID);
         this.iHours = hour;
         this.iMinutes = minutes;
-      }
 
-	public Alarms(int hour, int minutes){
+      }
+	public Alarm(int hour, int minutes){
         super(0);
         iHours = hour;
         iMinutes = minutes;
@@ -54,7 +47,7 @@ public class Alarms extends AbstractDatabaseObject{
     }
 
 
-    public Alarms(String time){
+    public Alarm(String time){
         super(0);
         this.DOW = new ArrayList<>();
         this.DOW.add(DayOfWeek.MON);
@@ -67,31 +60,23 @@ public class Alarms extends AbstractDatabaseObject{
         this.setTime(time);
     }
 
-    public Alarms(String time, ArrayList<DayOfWeek> dow){
+    public Alarm(String time, ArrayList<DayOfWeek> dow){
         super(0);
         this.DOW = dow;
         this.setTime(time);
     }
 
-    public Alarms(int ID, String time, String dow, int parentID) {
+    public Alarm(int ID, String time, String dow, int parentID) {
         super(ID);
         this.setTime(time);
         this.setDays(dow);
-        this.parent = MedicationMap.getInstance().get(parentID);
-    }
-
-    public Alarms(int ID, String time, String dow, Medication med) {
-        super(ID);
-        this.setTime(time);
-        this.setDays(dow);
-        this.parent = med;
+        this.parentId = parentID;
     }
 
     public void setDays(String dow) {
         String[] separated = dow.split(" - ");
         for (int i = 0;i< separated.length;i++)
         {
-            Log.d("DOW", separated[i]);
             this.addDay(DayOfWeek.valueOf(separated[i]));
         }
     }
@@ -141,14 +126,14 @@ public class Alarms extends AbstractDatabaseObject{
         this.iMinutes = minutes;
     }
 
-    public void setParent(Medication parent)
+    public void setParentID(int parentId)
     {
-        this.parent = parent;
+        this.parentId = parentId;
     }
 
-    public Medication getParent()
+    public int getParentID()
     {
-        return this.parent;
+        return this.parentId;
     }
 
     public int getMinutes() {
@@ -202,14 +187,13 @@ public class Alarms extends AbstractDatabaseObject{
 
     public String toString()
     {
-        return getTime() + "\t" + printDays() + "\t" + this.parent.getID();
+        return getTime() + "\t" + printDays() + "\t" + this.parentId;
     }
 
     public Calendar getNextAlarm(Calendar now)
     {
 
         int nextDay = 8;
-        now.set(Calendar.SECOND,15);
         Calendar tTime = (Calendar) now.clone();
 
         //Covert to Monday = 1 Sunday = 7

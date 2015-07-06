@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import be.ehb.medicationreminder.core.Medication;
 import be.ehb.medicationreminder.core.MedicationMap;
-import be.ehb.medicationsreminder.R;
+import be.ehb.medicationreminder.R;
 
 
 public class VibrateActivity extends Activity {

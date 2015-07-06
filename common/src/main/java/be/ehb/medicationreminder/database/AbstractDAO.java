@@ -3,6 +3,7 @@ package be.ehb.medicationreminder.database;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,7 @@ import be.ehb.medicationreminder.core.AbstractDatabaseObject;
  */
 public abstract class AbstractDAO {
 
+    private static final String TAG = "ABSTRACT_DAO";
     protected SQLiteDatabase db;
     private MedRemSQLiteHelper dbHelper;
     protected Context context;
@@ -24,11 +26,13 @@ public abstract class AbstractDAO {
     }
 
     public void close(){
-        db.close();
+        if (db.isOpen()) {
+            db.close();
+        }
     }
 
     public void open(){
-        db = dbHelper.getWritableDatabase();
+            db = dbHelper.getWritableDatabase();
     }
 
     public void delete(AbstractDatabaseObject object) {
@@ -36,6 +40,7 @@ public abstract class AbstractDAO {
         this.open();
         db.delete(this.getTableName(), MedRemSQLiteHelper.COLUMN_ID
                 + " = " + id, null);
+        this.close();
     }
 
     public int count() {
@@ -59,6 +64,7 @@ public abstract class AbstractDAO {
                 objects.add(this.cursorToObject(cursor));
             } while (cursor.moveToNext());
         }
+        this.close();
         return objects;
     }
 
@@ -73,7 +79,14 @@ public abstract class AbstractDAO {
             cursor.moveToFirst();
             object = this.cursorToObject(cursor);
         }
+        this.close();
         return object;
+    }
+
+    public void deleteAll(){
+        this.open();
+        db.delete(getTableName(),null,null);
+        this.close();
     }
 
     public abstract AbstractDatabaseObject insert(AbstractDatabaseObject object);

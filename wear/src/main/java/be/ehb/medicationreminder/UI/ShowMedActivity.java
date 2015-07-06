@@ -1,27 +1,23 @@
 package be.ehb.medicationreminder.UI;
 
 import android.app.Activity;
+
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
-import android.view.View;
+
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.TreeMap;
 
 import be.ehb.medicationreminder.core.Medication;
-//import be.ehb.medicationreminder.core.MedicationList;
 import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationreminder.database.MedicationDAO;
-import be.ehb.medicationsreminder.R;
+import be.ehb.medicationreminder.R;
+import be.ehb.medicationreminder.service.StartService;
 
 public class ShowMedActivity extends Activity {
 
@@ -62,7 +58,8 @@ public class ShowMedActivity extends Activity {
             }
         });
 
-
+        Intent intent = new Intent(this, StartService.class);
+        startService(intent);
     }
 
 

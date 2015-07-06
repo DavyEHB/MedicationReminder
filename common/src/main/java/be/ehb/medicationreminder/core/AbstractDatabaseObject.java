@@ -5,7 +5,7 @@ package be.ehb.medicationreminder.core;
  */
 public abstract class AbstractDatabaseObject {
 
-    private int id;
+    private int id = 0;
 
     public void setID(int ID){
         this.id = ID;

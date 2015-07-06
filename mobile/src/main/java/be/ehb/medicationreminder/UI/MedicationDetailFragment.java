@@ -30,13 +30,13 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
+import be.ehb.medicationreminder.MedicationReminder;
 import be.ehb.medicationreminder.R;
 
 
-import be.ehb.medicationreminder.core.Alarms;
+import be.ehb.medicationreminder.core.Alarm;
 import be.ehb.medicationreminder.core.DayOfWeek;
 import be.ehb.medicationreminder.core.Medication;
-//import be.ehb.medicationreminder.core.MedicationList;
 import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationreminder.database.AlarmDAO;
 import be.ehb.medicationreminder.database.MedicationDAO;
@@ -68,7 +68,8 @@ public class MedicationDetailFragment extends Fragment{
 
     private int listpos;
 
-    private MedicationMap mediMap = null;
+    private MedicationMap medMap = null;
+    private MedicationReminder application;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -79,6 +80,7 @@ public class MedicationDetailFragment extends Fragment{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        application = (MedicationReminder) getActivity().getApplication();
 
         this.setHasOptionsMenu(true);
 
@@ -87,8 +89,9 @@ public class MedicationDetailFragment extends Fragment{
             // arguments. In a real-world scenario, use a Loader
             // to load content from a content provider.
             //mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-            mediMap = MedicationMap.getInstance();
-            mItem = mediMap.get(getArguments().getInt(ARG_ITEM_ID));
+            //medMap = MedicationMap.getInstance();
+            medMap = application.getMedicationMap();
+            mItem = medMap.get(getArguments().getInt(ARG_ITEM_ID));
             //mItem = MedicationList.getInstance().getMedicationList().get(getArguments().getInt(ARG_ITEM_ID));
         }
         super.onCreate(savedInstanceState);
@@ -186,7 +189,7 @@ public class MedicationDetailFragment extends Fragment{
                             .setPositiveButton("YES",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Alarms delAlarm = mItem.getAlarms().get(position);
+                                            Alarm delAlarm = mItem.getAlarms().get(position);
                                             AlarmDAO alarmDAO = new AlarmDAO(getActivity());
                                             alarmDAO.delete(delAlarm);
                                             mItem.removeAlarm(delAlarm);
@@ -244,7 +247,7 @@ public class MedicationDetailFragment extends Fragment{
                 if (resultCode == Activity.RESULT_OK) {
                     int h = returnedIntent.getIntExtra(TimePickerDialog.ARG_HOUR_ID, 0);
                     int m = returnedIntent.getIntExtra(TimePickerDialog.ARG_MINUTE_ID, 0);
-                    Alarms alarm = new Alarms(h,m);
+                    Alarm alarm = new Alarm(h,m);
                     AlarmDAO alarmDAO = new AlarmDAO(getActivity());
 
                     alarm.setDays(returnedIntent.getIntegerArrayListExtra(TimePickerDialog.ARG_DAYS_ID));
@@ -257,7 +260,7 @@ public class MedicationDetailFragment extends Fragment{
                 if (resultCode == Activity.RESULT_OK) {
                     int h = returnedIntent.getIntExtra(TimePickerDialog.ARG_HOUR_ID, 0);
                     int m = returnedIntent.getIntExtra(TimePickerDialog.ARG_MINUTE_ID, 0);
-                    Alarms alarm = mItem.getAlarms().get(listpos);
+                    Alarm alarm = mItem.getAlarms().get(listpos);
                     AlarmDAO alarmDAO = new AlarmDAO(getActivity());
 
                     alarm.setDays(returnedIntent.getIntegerArrayListExtra(TimePickerDialog.ARG_DAYS_ID));

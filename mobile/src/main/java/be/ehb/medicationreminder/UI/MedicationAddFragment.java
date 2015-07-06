@@ -30,8 +30,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
+import be.ehb.medicationreminder.MedicationReminder;
 import be.ehb.medicationreminder.R;
-import be.ehb.medicationreminder.core.Alarms;
+import be.ehb.medicationreminder.core.Alarm;
 import be.ehb.medicationreminder.core.DayOfWeek;
 import be.ehb.medicationreminder.core.Medication;
 //import be.ehb.medicationreminder.core.MedicationList;
@@ -51,10 +52,15 @@ public class MedicationAddFragment extends Fragment {
 
     private ArrayAdapter adapter = null;
 
-    private MedicationMap mediMap = null;
+    private MedicationMap medMap = null;
+    private MedicationReminder application;
 
     public interface Callback {
+        public boolean onAddImage();
         public void onButtonClicked();
+        public void addAlarm();
+        public View loadView(View view);
+        //   public void onAddClicked();
     }
 
     public MedicationAddFragment() {
@@ -64,8 +70,10 @@ public class MedicationAddFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mediMap = MedicationMap.getInstance();
-        mItem = new Medication("");
+
+        //medMap = MedicationMap.getInstance();
+        //medMap = application.getMedicationMap();
+        //mItem = new Medication("");
     }
 
     @Override
@@ -73,29 +81,32 @@ public class MedicationAddFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_medication_add, container, false);
+       return mCallback.loadView(rootView);
+    }
 
-        Button add = (Button) rootView.findViewById(R.id.btn_add);
+    /*
+
+        //return mCallback.loadView(rootView);
+       Button add = (Button) rootView.findViewById(R.id.btn_add);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //mCallback.onAddButtonClicked();
-
                 if (mItem.getName() != ""){
                     MedicationDAO medDAO = new MedicationDAO(getActivity());
                     AlarmDAO alarmDAO = new AlarmDAO(getActivity());
-                    ArrayList<Alarms> tmpAlarms = (ArrayList<Alarms>) mItem.getAlarms().clone();
+                    ArrayList<Alarm> tmpAlarms = (ArrayList<Alarm>) mItem.getAlarms().clone();
                     mItem.getAlarms().clear();
                     mItem = medDAO.insert(mItem);
                     mItem.addAlarms(tmpAlarms);
-                    Iterator<Alarms> alIT = tmpAlarms.iterator();
+                    Iterator<Alarm> alIT = tmpAlarms.iterator();
                     while (alIT.hasNext())
                     {
-                        Alarms al = alIT.next();
+                        Alarm al = alIT.next();
                         Log.d("ALARMS",al.toString());
                         alarmDAO.insert(al);
                     }
 
-                    mediMap.put(mItem);
+                    medMap.put(mItem);
                     //MedicationList.getInstance().addMedication(mItem);
                     Log.d("MEDID",String.valueOf(mItem.toString()));
                     mCallback.onButtonClicked();
@@ -106,6 +117,7 @@ public class MedicationAddFragment extends Fragment {
                     toast.show();
                 }
             }
+
         });
 
         Button cancel = (Button) rootView.findViewById(R.id.btn_cancel);
@@ -143,7 +155,6 @@ public class MedicationAddFragment extends Fragment {
             }
         });
 
-
         ImageView i = (ImageView) rootView.findViewById(R.id.new_image);
 
         i.setImageResource(R.drawable.no_image);
@@ -156,10 +167,7 @@ public class MedicationAddFragment extends Fragment {
         i.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-                photoPickerIntent.setType("image/*");
-                startActivityForResult(photoPickerIntent, SELECT_PHOTO);
-                return false;
+                return mCallback.onAddImage();
             }
         });
 
@@ -182,7 +190,7 @@ public class MedicationAddFragment extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                addAlarm();
+                mCallback.addAlarm();
             }
         });
 
@@ -219,12 +227,14 @@ public class MedicationAddFragment extends Fragment {
         txtEmpty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addAlarm();
+                mCallback.addAlarm();
             }
         });
 
         return rootView;
     }
+
+    */
 
     @Override
     public void onAttach(Activity activity) {
@@ -243,18 +253,7 @@ public class MedicationAddFragment extends Fragment {
         mCallback = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
-
+/*
     private void addAlarm(){
         Log.d("NEW", "NEW ALARM FOR " + mItem.getName());
         int h = Calendar.getInstance().get(Calendar.HOUR);
@@ -290,8 +289,8 @@ public class MedicationAddFragment extends Fragment {
         timePick.setArguments(args);
         timePick.setTargetFragment(MedicationAddFragment.this,SELECT_TIME);
         timePick.show(fm, "time_picker");
-    }
-
+    }*/
+/*
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent returnedIntent) {
         super.onActivityResult(requestCode, resultCode, returnedIntent);
@@ -321,11 +320,11 @@ public class MedicationAddFragment extends Fragment {
                 if (resultCode == Activity.RESULT_OK) {
                     int h = returnedIntent.getIntExtra(TimePickerDialog.ARG_HOUR_ID, 0);
                     int m = returnedIntent.getIntExtra(TimePickerDialog.ARG_MINUTE_ID, 0);
-                    Alarms alarm = new Alarms(h,m);
+                    Alarm alarm = new Alarm(h,m);
                     alarm.setDays(returnedIntent.getIntegerArrayListExtra(TimePickerDialog.ARG_DAYS_ID));
                     mItem.addAlarm(alarm);
                     adapter.notifyDataSetChanged();
                 }
         }
-    }
+    }*/
 }

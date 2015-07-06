@@ -7,7 +7,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 import be.ehb.medicationreminder.core.AbstractDatabaseObject;
-import be.ehb.medicationreminder.core.Alarms;
+import be.ehb.medicationreminder.core.Alarm;
 import be.ehb.medicationreminder.core.Medication;
 
 
@@ -23,39 +23,39 @@ public class AlarmDAO extends AbstractDAO {
     }
 
     @Override
-    public Alarms insert(AbstractDatabaseObject object) {
-        Alarms alarm = (Alarms) object;
+    public Alarm insert(AbstractDatabaseObject object) {
+        Alarm alarm = (Alarm) object;
         ContentValues values = new ContentValues();
-        //values.put(MedRemSQLiteHelper.COLUMN_ID, alarm.getID());
+        values.put(MedRemSQLiteHelper.COLUMN_ID, alarm.getID());
         values.put(MedRemSQLiteHelper.COLUMN_TIME, alarm.getTime());
         values.put(MedRemSQLiteHelper.COLUMN_DAYS, alarm.printDays());
-        values.put(MedRemSQLiteHelper.COLUMN_MED_ID,alarm.getParent().getID());
+        values.put(MedRemSQLiteHelper.COLUMN_MED_ID,alarm.getParentID());
 
         this.open();
         int insertID = (int) db.insert(this.TABLE_NAME, null, values);
-        alarm = (Alarms) this.getByID(insertID);
+        alarm = (Alarm) this.getByID(insertID);
         this.close();
         return alarm;
     }
 
     @Override
-    public ArrayList<Alarms> getAll() {
+    public ArrayList<Alarm> getAll() {
         return super.getAll();
     }
 
     @Override
-    public Alarms getByID(int id) {
-        return (Alarms) super.getByID(id);
+    public Alarm getByID(int id) {
+        return (Alarm) super.getByID(id);
     }
 
     @Override
     public int update(AbstractDatabaseObject object) {
-        Alarms alarm = (Alarms) object;
+        Alarm alarm = (Alarm) object;
         ContentValues values = new ContentValues();
         values.put(MedRemSQLiteHelper.COLUMN_ID, alarm.getID());
         values.put(MedRemSQLiteHelper.COLUMN_TIME, alarm.getTime());
         values.put(MedRemSQLiteHelper.COLUMN_DAYS, alarm.printDays());
-        values.put(MedRemSQLiteHelper.COLUMN_MED_ID,alarm.getParent().getID());
+        values.put(MedRemSQLiteHelper.COLUMN_MED_ID,alarm.getParentID());
 
         this.open();
         int ret = db.update(this.TABLE_NAME, values, MedRemSQLiteHelper.COLUMN_ID + " = ?",
@@ -64,9 +64,9 @@ public class AlarmDAO extends AbstractDAO {
         return ret;
     }
 
-    public ArrayList<Alarms> getAlarmsByMed(Medication med)
+    public ArrayList<Alarm> getAlarmsByMed(Medication med)
     {
-        ArrayList<Alarms> objects = new ArrayList<>();
+        ArrayList<Alarm> objects = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + this.getTableName() + " WHERE " + MedRemSQLiteHelper.COLUMN_MED_ID + " ='" + med.getID() + "'";
         this.open();
@@ -74,17 +74,18 @@ public class AlarmDAO extends AbstractDAO {
 
         if (cursor.moveToFirst()) {
             do {
-                objects.add(new Alarms(cursor.getInt(0), cursor.getString(1), cursor.getString(2),med));
+                objects.add(new Alarm(cursor.getInt(0), cursor.getString(1), cursor.getString(2),med.getID()));
             } while (cursor.moveToNext());
         }
+        this.close();
         return objects;
     }
 
 
     @Override
-    protected Alarms cursorToObject(Cursor cursor) {
+    protected Alarm cursorToObject(Cursor cursor) {
 
-        return new Alarms(cursor.getInt(0), cursor.getString(1), cursor.getString(2),cursor.getInt(3));
+        return new Alarm(cursor.getInt(0), cursor.getString(1), cursor.getString(2),cursor.getInt(3));
     }
 
     @Override

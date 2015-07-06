@@ -2,7 +2,6 @@ package be.ehb.medicationreminder.core;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -15,7 +14,7 @@ public class Medication extends AbstractDatabaseObject {
     private static final String TAG = "Medication";
     private String sName;
 	private Bitmap Picture;
-    private final ArrayList<Alarms> aAlarms = new ArrayList<>();
+    private final ArrayList<Alarm> aAlarms = new ArrayList<>();
 
     @SuppressWarnings("unused")
 	private Medication(){
@@ -47,7 +46,7 @@ public class Medication extends AbstractDatabaseObject {
         sName = name;
     }
 
-    public ArrayList<Alarms> getAlarms(){
+    public ArrayList<Alarm> getAlarms(){
         return aAlarms;
     }
 
@@ -59,37 +58,27 @@ public class Medication extends AbstractDatabaseObject {
         Picture = getResizedBitmap(picture,MAX_WIDTH);
     }
 
-    public void addAlarm(Alarms alarm){
-        alarm.setParent(this);
+    public void addAlarm(Alarm alarm){
+        alarm.setParentID(this.getID());
         this.aAlarms.add(alarm);
     }
 
-    public void addAlarms(ArrayList<Alarms> alarms){
-        Iterator<Alarms> alIT = alarms.iterator();
+    public void addAlarms(ArrayList<Alarm> alarms){
+        Iterator<Alarm> alIT = alarms.iterator();
         while (alIT.hasNext()){
             this.addAlarm(alIT.next());
         }
     }
 
-    public void addAlarm(String time){
-        Alarms tsTemp = new Alarms(time);
-        this.addAlarm(tsTemp);
-    }
-
-    public void addAlarm(ArrayList<DayOfWeek> dow, String time){
-        Alarms tsTemp = new Alarms(time,dow);
-        this.addAlarm(tsTemp);
-    }
-
-    public void removeAlarm(Alarms alarm)
+    public void removeAlarm(Alarm alarm)
     {
-        alarm.setParent(null);
+        alarm.setParentID(0);
         this.aAlarms.remove(alarm);
     }
 
 
-    public boolean isTimeEqual(Alarms timestamp){
-        Iterator<Alarms> itTime = aAlarms.iterator();
+    public boolean isTimeEqual(Alarm timestamp){
+        Iterator<Alarm> itTime = aAlarms.iterator();
         while (itTime.hasNext()){
             if (itTime.next().equals(timestamp)){
                 return true;
@@ -130,8 +119,8 @@ public class Medication extends AbstractDatabaseObject {
     public Calendar getNextAlarm(Calendar now)
     {
         Calendar next = null;
-        Alarms nextAlarm = null;
-        for (Alarms alarm : this.aAlarms)
+        Alarm nextAlarm = null;
+        for (Alarm alarm : this.aAlarms)
         {
             Calendar temp = alarm.getNextAlarm(now);
             if (next == null)

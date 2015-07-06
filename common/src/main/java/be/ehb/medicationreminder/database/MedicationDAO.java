@@ -3,6 +3,7 @@ package be.ehb.medicationreminder.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -15,6 +16,7 @@ import be.ehb.medicationreminder.core.Medication;
  */
 public class MedicationDAO extends AbstractDAO {
 
+    private static final String TAG = "ABSTRACT_DAO";
     private final String TABLE_NAME = MedRemSQLiteHelper.TABLE_MEDICATIONS;
 
     public MedicationDAO(Context context) {
@@ -53,10 +55,13 @@ public class MedicationDAO extends AbstractDAO {
     @Override
     public Medication insert(AbstractDatabaseObject medication) {
         Medication med = (Medication) medication;
-
+        Log.d(TAG, "old ID: " + med.getID());
+        Integer id = null;
         ContentValues values = new ContentValues();
-
-        //values.put(MedRemSQLiteHelper.COLUMN_ID, med.getID());
+        if (med.getID() != 0){
+            id  = med.getID();
+        }
+        values.put(MedRemSQLiteHelper.COLUMN_ID, id);
         values.put(MedRemSQLiteHelper.COLUMN_NAME, med.getName());
         values.put(MedRemSQLiteHelper.COLUMN_PICTURE,DbUtility.getBytes(med.getPicture()));
 
@@ -64,6 +69,7 @@ public class MedicationDAO extends AbstractDAO {
         long insertID = db.insert(this.TABLE_NAME, null, values);
         med = (Medication) this.getByID((int)insertID);
         this.close();
+        Log.d(TAG, "new ID: " + med.getID());
         return med;
     }
 

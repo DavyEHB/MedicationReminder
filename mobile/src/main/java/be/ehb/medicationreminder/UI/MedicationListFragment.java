@@ -14,14 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 
+import be.ehb.medicationreminder.MedicationReminder;
 import be.ehb.medicationreminder.R;
 
 
-import be.ehb.medicationreminder.core.Alarms;
+import be.ehb.medicationreminder.core.Alarm;
 import be.ehb.medicationreminder.core.Medication;
 import be.ehb.medicationreminder.core.MedicationMap;
 import be.ehb.medicationreminder.database.AlarmDAO;
@@ -57,7 +57,9 @@ public class MedicationListFragment extends ListFragment {
     private int mActivatedPosition = ListView.INVALID_POSITION;
     private ArrayAdapter adapter = null;
 
-    private MedicationMap mediMap = null;
+    private MedicationMap medMap = null;
+
+    private MedicationReminder application;
 
 /*
     @Override
@@ -76,7 +78,7 @@ public class MedicationListFragment extends ListFragment {
          * Callback for when an item has been selected.
          */
         public void onItemSelected(int id);
-        public void onAddMedicationFragment();
+        //public void onAddMedicationFragment();
     }
 
     /**
@@ -91,17 +93,23 @@ public class MedicationListFragment extends ListFragment {
         this.setHasOptionsMenu(true);
         super.onCreate(savedInstanceState);
 
-        mediMap = MedicationMap.getInstance();
+        application = (MedicationReminder) getActivity().getApplication();
+        medMap = application.getMedicationMap();
+
+/*
+        medMap = MedicationMap.getInstance();
         MedicationDAO medicationDAO = new MedicationDAO(getActivity());
         AlarmDAO alarmDAO = new AlarmDAO(getActivity());
         Log.d(TAG,"Loading Database");
-        mediMap.putAll(medicationDAO.getAll());
+        medMap.putAll(medicationDAO.getAll());
 
-        for (Map.Entry<Integer,Medication> entry : mediMap.entrySet())
+        for (Map.Entry<Integer,Medication> entry : medMap.entrySet())
         {
             Medication tMed = entry.getValue();
             tMed.addAlarms(alarmDAO.getAlarmsByMed(tMed));
         }
+*/
+        //application.setMedicationMap(medMap);
 
 /*
         Iterator<Medication> medIT = MedicationList.getInstance().getMedicationList().iterator();
@@ -125,15 +133,15 @@ public class MedicationListFragment extends ListFragment {
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                mediMap
+                medMap
                 );
         setListAdapter(adapter);
 /*
         adapter = new ArrayAdapter<>(
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,mediMap.values().toArray(new Medication[mediMap.size()]));
-                //mediMap.getInstance().getMedicationList());
+                android.R.id.text1,medMap.values().toArray(new Medication[medMap.size()]));
+                //medMap.getInstance().getMedicationList());
         setListAdapter(adapter);
 */
     }
@@ -167,23 +175,23 @@ public class MedicationListFragment extends ListFragment {
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         //Medication delMed = MedicationList.getInstance().getMedicationList().get(position);
-                                        Medication delMed = mediMap.get((int) id);
+                                        Medication delMed = medMap.get((int) id);
                                         MedicationDAO medicationDAO = new MedicationDAO(getActivity());
                                         AlarmDAO alarmDAO = new AlarmDAO(getActivity());
-                                        Iterator<Alarms> delAlarmsIT = delMed.getAlarms().iterator();
+                                        Iterator<Alarm> delAlarmsIT = delMed.getAlarms().iterator();
                                         while (delAlarmsIT.hasNext())
                                         {
                                             alarmDAO.delete(delAlarmsIT.next());
                                         }
                                         medicationDAO.delete(delMed);
-                                        mediMap.remove(delMed);
+                                        medMap.remove(delMed);
 
                                         //MedicationList.getInstance().deleteMedication(delMed);
                                         adapter = new TreeMapAdapter(
                                                 getActivity(),
                                                 android.R.layout.simple_list_item_activated_1,
                                                 android.R.id.text1,
-                                                mediMap
+                                                medMap
                                         );
                                         setListAdapter(adapter);
                                         adapter.notifyDataSetChanged();
@@ -263,10 +271,7 @@ public class MedicationListFragment extends ListFragment {
         switch (item.getItemId()) {
             case R.id.new_med:
                 Log.d("NEW", "NEW MEDS");
-                mCallbacks.onAddMedicationFragment();
-                return true;
-            case R.id.sync_watch:
-                onSyncWatchClick(getView());
+                //mCallbacks.onAddMedicationFragment();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -279,7 +284,7 @@ public class MedicationListFragment extends ListFragment {
                 getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
-                mediMap
+                medMap
         );
         setListAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -289,5 +294,6 @@ public class MedicationListFragment extends ListFragment {
 
     public void onSyncWatchClick(View view){
         Log.d("MENU","Sync watch");
+
     }
 }

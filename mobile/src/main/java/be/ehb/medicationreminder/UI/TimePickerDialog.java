@@ -28,6 +28,8 @@ public class TimePickerDialog extends DialogFragment {
     private int iMinute;
     private ArrayList<Integer> sDays = new ArrayList<>();
 
+    public Callback callback;
+
     private List<ToggleButton> toggleButtons;
     private static final int[] BUTTON_IDS = {
             R.id.btn_mon,
@@ -43,6 +45,10 @@ public class TimePickerDialog extends DialogFragment {
     public static final String ARG_HOUR_ID = "hour_id";
     public static final String ARG_DAYS_ID = "days_id";
 
+    public interface Callback {
+        public void onFinnishTimePick(int hour, int minute, ArrayList<Integer> days);
+    }
+
     public TimePickerDialog() {
         // Empty constructor required for DialogFragment
     }
@@ -57,7 +63,6 @@ public class TimePickerDialog extends DialogFragment {
     }
 
     private void sendResult() {
-        //mTimeStamp.setTime("16:20");
         sDays.clear();
 
         for (int id = 0; id <= 6; id++) {
@@ -73,13 +78,16 @@ public class TimePickerDialog extends DialogFragment {
 
         iHour = mTimePick.getCurrentHour();
         iMinute = mTimePick.getCurrentMinute();
-
+        callback.onFinnishTimePick(iHour,iMinute,sDays);
+        /*
         Intent intent = new Intent();
         intent.putExtra(ARG_HOUR_ID, iHour);
         intent.putExtra(ARG_MINUTE_ID, iMinute);
         intent.putExtra(ARG_DAYS_ID, sDays);
-        getTargetFragment().onActivityResult(
-                getTargetRequestCode(), Activity.RESULT_OK, intent);
+        onActivityResult(getTargetRequestCode(),Activity.RESULT_OK,intent);
+        //getTargetFragment().onActivityResult(
+        //        getTargetRequestCode(), Activity.RESULT_OK, intent);
+        */
     }
 
     @Override

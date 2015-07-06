@@ -33,7 +33,8 @@
         android:text="@string/tap_to_enter"
         android:id="@+id/new_med_name"
         android:layout_below="@+id/new_med_name_title"
-        android:layout_alignStart="@+id/new_med_name_title" />
+        android:layout_alignStart="@+id/new_med_name_title"
+        android:onClick="onNewNameClick"/>
 
     <View
         android:layout_width="fill_parent"
@@ -109,7 +110,8 @@
             android:layout_height="wrap_content"
             android:text="@string/cancel"
             android:id="@+id/btn_cancel"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="onCancelClick"/>
 
         <View
             android:layout_width="0dp"
@@ -124,7 +126,8 @@
             android:text="@string/add"
             android:id="@+id/btn_add"
             android:layout_gravity="center"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:onClick="onAddClick"/>
     </LinearLayout>
 
 </RelativeLayout>

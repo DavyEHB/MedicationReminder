@@ -1,11 +1,9 @@
 package be.ehb.medicationreminder.core;
 
-import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.TreeMap;
 
 /**
@@ -95,10 +93,10 @@ public class MedicationMap extends TreeMap<Integer,Medication> {
         return null;
     }
 
-    public TreeMap<Integer,Medication> checkAlarms(Alarms alarms){
+    public TreeMap<Integer,Medication> checkAlarms(Alarm alarm){
         TreeMap<Integer,Medication> tList = new TreeMap<>();
         for (Entry<Integer,Medication> entry : this.entrySet()){
-            if (entry.getValue().isTimeEqual(alarms)){
+            if (entry.getValue().isTimeEqual(alarm)){
                 tList.put(entry.getKey(),entry.getValue());
             }
         }
@@ -134,9 +132,17 @@ public class MedicationMap extends TreeMap<Integer,Medication> {
                 nextMed = tMed;
             }
         }
-        Log.d(TAG,"Current time: " + now.getTime());
-        Log.d(TAG,"Next alarm: " + nextAlarm.getTime());
-        Log.d(TAG,"Next med name: " +nextMed.getID());
+        if (nextAlarm != null)
+        {
+            Log.d(TAG,"Current time: " + now.getTime());
+            Log.d(TAG,"Next alarm: " + nextAlarm.getTime());
+            Log.d(TAG,"Next med name: " +nextMed.getID());
+        }
+        else
+        {
+            Log.d(TAG,"No Next Alarm");
+        }
+
         return nextMed;
     }
 }

@@ -1,10 +1,25 @@
 package be.ehb.medicationreminder.UI;
 
 import android.content.Intent;
+import android.content.IntentSender;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
 
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.MessageApi;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
+
+import java.util.Date;
 
 import be.ehb.medicationreminder.R;
 
@@ -25,13 +40,29 @@ import be.ehb.medicationreminder.R;
  * to listen for item selections.
  */
 public class MedicationListActivity extends Activity
-        implements MedicationListFragment.Callbacks{
+        implements MedicationListFragment.Callbacks,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
+
+    private static final String TAG = "LIST_ACTIVITY";
+    public static final String MED_MAP = "be.ehb.medrem/med_map";
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
+    private GoogleApiClient mGoogleApiClient;
+    private String MSG_PATH = "/msg";
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        boolean mResolvingError = true;
+        if (!mResolvingError) {
+            mGoogleApiClient.connect();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +83,8 @@ public class MedicationListActivity extends Activity
             listFrag.setHasOptionsMenu(true);
 
         }
+
+
     }
 
     /**
@@ -81,12 +114,70 @@ public class MedicationListActivity extends Activity
             startActivity(detailIntent);
         }
     }
-
+/*
     @Override
     public void onAddMedicationFragment() {
         Log.d("NEW MED","Starting new activity");
         Intent addIntent = new Intent(this, MedicationAddActivity.class);
         startActivityForResult(addIntent, MedicationAddActivity.ADD_NEW_MED);
     }
+    */
 
+    public void onAddMedClick(MenuItem item){
+        Log.d("NEW MED","Starting new activity");
+        Intent addIntent = new Intent(this, MedicationAddActivity.class);
+        startActivityForResult(addIntent, MedicationAddActivity.ADD_NEW_MED);
+    }
+
+    public void onSyncClick(MenuItem item){
+        Log.d(TAG, "onSyncClick");
+        /*
+        PutDataMapRequest dataMap = PutDataMapRequest.create(IMAGE_PATH);
+        dataMap.getDataMap().putLong("time", new Date().getTime());
+        PutDataRequest request = dataMap.asPutDataRequest();
+        Wearable.DataApi.putDataItem(mGoogleApiClient, request)
+                .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+                    @Override
+                    public void onResult(DataApi.DataItemResult dataItemResult) {
+                        Log.d(TAG, "Sending image was successful: " + dataItemResult.getStatus()
+                                .isSuccess());
+                    }
+                });
+                */
+        sendMessage("TEST");
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        Log.d(TAG,"Connection succeed");
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+        Log.d(TAG,"Connection suspended");
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Log.d(TAG,"Connection failed");
+    }
+
+
+    private void sendMessage(String msg) {
+        Wearable.MessageApi.sendMessage(
+                mGoogleApiClient, "TEST", MSG_PATH,msg.getBytes()).setResultCallback(
+                new ResultCallback<MessageApi.SendMessageResult>() {
+                    @Override
+                    public void onResult(MessageApi.SendMessageResult sendMessageResult) {
+                        if (!sendMessageResult.getStatus().isSuccess()) {
+                            Log.e(TAG, "Failed to send message with status code: "
+                                    + sendMessageResult.getStatus().getStatusCode());
+                        }
+                        else {
+                            Log.d(TAG,"Success sending message");
+                        }
+                    }
+                }
+        );
+   }
 }
