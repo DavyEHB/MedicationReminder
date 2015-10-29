@@ -170,6 +170,7 @@ public class MedicationAddActivity extends Activity implements MedicationAddFrag
     }
 
     public void onNewNameClick(View view) {
+        Log.d(TAG,"NexNameClicked");
         final EditText input = new EditText(this);
         input.setSingleLine(true);
         new AlertDialog.Builder(this)
@@ -189,9 +190,9 @@ public class MedicationAddActivity extends Activity implements MedicationAddFrag
 
     public void addAlarm(){
         Log.d("NEW", "NEW ALARM FOR " + mItem.getName());
-        int h = Calendar.getInstance().get(Calendar.HOUR);
+        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         int m = Calendar.getInstance().get(Calendar.MINUTE);
-        ArrayList<DayOfWeek> everyDay = new ArrayList<>();
+        ArrayList<DayOfWeek> everyDay = new ArrayList<DayOfWeek>();
         everyDay.add(DayOfWeek.MON);
         everyDay.add(DayOfWeek.TUE);
         everyDay.add(DayOfWeek.WED);
@@ -293,7 +294,7 @@ public class MedicationAddActivity extends Activity implements MedicationAddFrag
         args.putInt(TimePickerDialog.ARG_MINUTE_ID, minute);
 
         Iterator<DayOfWeek> dowIT = dow.iterator();
-        ArrayList<Integer> dowINT = new ArrayList<>();
+        ArrayList<Integer> dowINT = new ArrayList<Integer>();
 
         while (dowIT.hasNext()) {
             dowINT.add(dowIT.next().ordinal());

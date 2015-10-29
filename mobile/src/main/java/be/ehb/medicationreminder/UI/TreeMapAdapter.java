@@ -16,10 +16,10 @@ import be.ehb.medicationreminder.core.Medication;
 public class TreeMapAdapter extends ArrayAdapter<Medication> {
     private static final String TAG = "TREE_MAP_ADAPTER";
     private final Context context;
-    private ArrayList<Medication> mValues = new ArrayList<>();
-    private ArrayList<Integer> mKeys = new ArrayList<>();
+    private ArrayList<Medication> mValues = new ArrayList<Medication>();
+    private ArrayList<Integer> mKeys = new ArrayList<Integer>();
 
-    private TreeMap<Integer, Medication> mData = new TreeMap<>();
+    private TreeMap<Integer, Medication> mData = new TreeMap<Integer, Medication>();
 
     public TreeMapAdapter(Context context, int resource , int textViewResourceId, TreeMap<Integer, Medication> data) {
         super(context,resource,textViewResourceId,data.values().toArray(new Medication[data.size()]));

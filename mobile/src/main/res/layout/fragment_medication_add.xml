@@ -34,7 +34,8 @@
         android:id="@+id/new_med_name"
         android:layout_below="@+id/new_med_name_title"
         android:layout_alignStart="@+id/new_med_name_title"
-        android:onClick="onNewNameClick"/>
+        android:onClick="onNewNameClick"
+        android:clickable="true" />
 
     <View
         android:layout_width="fill_parent"
@@ -66,7 +67,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
-                android:maxHeight="250dp"/>
+                android:maxHeight="250dp"
+            android:clickable="true"/>
 
     </LinearLayout>
 

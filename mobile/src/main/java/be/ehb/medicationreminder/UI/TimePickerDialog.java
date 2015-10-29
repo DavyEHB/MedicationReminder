@@ -26,7 +26,7 @@ public class TimePickerDialog extends DialogFragment {
 
     private int iHour;
     private int iMinute;
-    private ArrayList<Integer> sDays = new ArrayList<>();
+    private ArrayList<Integer> sDays = new ArrayList<Integer>();
 
     public Callback callback;
 
@@ -79,7 +79,7 @@ public class TimePickerDialog extends DialogFragment {
         iHour = mTimePick.getCurrentHour();
         iMinute = mTimePick.getCurrentMinute();
         callback.onFinnishTimePick(iHour,iMinute,sDays);
-        /*
+/*
         Intent intent = new Intent();
         intent.putExtra(ARG_HOUR_ID, iHour);
         intent.putExtra(ARG_MINUTE_ID, iMinute);
@@ -87,7 +87,7 @@ public class TimePickerDialog extends DialogFragment {
         onActivityResult(getTargetRequestCode(),Activity.RESULT_OK,intent);
         //getTargetFragment().onActivityResult(
         //        getTargetRequestCode(), Activity.RESULT_OK, intent);
-        */
+*/
     }
 
     @Override
@@ -134,7 +134,7 @@ public class TimePickerDialog extends DialogFragment {
         Log.d("DAYS","Array " + sDays.toString());
         Log.d("DAYS","SUN " + String.valueOf(DayOfWeek.SUN.ordinal()));
 
-        toggleButtons = new ArrayList<>(BUTTON_IDS.length);
+        toggleButtons = new ArrayList<ToggleButton>(BUTTON_IDS.length);
         for(int id = 0; id <=6; id++) {
             ToggleButton button = (ToggleButton)view.findViewById(BUTTON_IDS[id]);
             if (sDays.contains(id)){

@@ -19,7 +19,6 @@ public class StartActivity extends Activity{
     private MedicationReminder application;
     private MedicationMap medicationMap;
     private WearConnector wearConnector;
-    private MedicationDAO medicationDAO;
 
 
     @Override
@@ -35,7 +34,6 @@ public class StartActivity extends Activity{
 
         wearConnector = new WearConnector(this);
         wearConnector.connect();
-        medicationDAO = new MedicationDAO(this);
     }
 
     @Override

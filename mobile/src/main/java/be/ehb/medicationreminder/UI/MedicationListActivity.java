@@ -1,26 +1,18 @@
 package be.ehb.medicationreminder.UI;
 
 import android.content.Intent;
-import android.content.IntentSender;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.PendingResult;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.MessageApi;
-import com.google.android.gms.wearable.PutDataMapRequest;
-import com.google.android.gms.wearable.PutDataRequest;
-import com.google.android.gms.wearable.Wearable;
 
-import java.util.Date;
-
+import be.ehb.medicationreminder.Connection.WearConnector;
+import be.ehb.medicationreminder.MedicationReminder;
 import be.ehb.medicationreminder.R;
 
 /**
@@ -42,7 +34,8 @@ import be.ehb.medicationreminder.R;
 public class MedicationListActivity extends Activity
         implements MedicationListFragment.Callbacks,
         GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+        GoogleApiClient.OnConnectionFailedListener,
+        WearConnector.SendResult {
 
     private static final String TAG = "LIST_ACTIVITY";
     public static final String MED_MAP = "be.ehb.medrem/med_map";
@@ -54,6 +47,8 @@ public class MedicationListActivity extends Activity
     private boolean mTwoPane;
     private GoogleApiClient mGoogleApiClient;
     private String MSG_PATH = "/msg";
+    private WearConnector wearConnector;
+    private MedicationReminder application;
 
     @Override
     protected void onStart() {
@@ -62,6 +57,16 @@ public class MedicationListActivity extends Activity
         if (!mResolvingError) {
             mGoogleApiClient.connect();
         }
+        application = ((MedicationReminder)getApplicationContext());
+
+        wearConnector = new WearConnector(this);
+    }
+
+
+    @Override
+    protected void onStop() {
+        wearConnector.disconnect();
+        super.onStop();
     }
 
     @Override
@@ -144,7 +149,8 @@ public class MedicationListActivity extends Activity
                     }
                 });
                 */
-        sendMessage("TEST");
+        wearConnector.connect();
+        wearConnector.pushToWear(application.getMedicationMap());
     }
 
     @Override
@@ -162,22 +168,15 @@ public class MedicationListActivity extends Activity
         Log.d(TAG,"Connection failed");
     }
 
+    @Override
+    public void onSuccess() {
+        String text = getString(R.string.send_success);
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
+    }
 
-    private void sendMessage(String msg) {
-        Wearable.MessageApi.sendMessage(
-                mGoogleApiClient, "TEST", MSG_PATH,msg.getBytes()).setResultCallback(
-                new ResultCallback<MessageApi.SendMessageResult>() {
-                    @Override
-                    public void onResult(MessageApi.SendMessageResult sendMessageResult) {
-                        if (!sendMessageResult.getStatus().isSuccess()) {
-                            Log.e(TAG, "Failed to send message with status code: "
-                                    + sendMessageResult.getStatus().getStatusCode());
-                        }
-                        else {
-                            Log.d(TAG,"Success sending message");
-                        }
-                    }
-                }
-        );
-   }
+    @Override
+    public void onFailed() {
+        Log.e(TAG,"Sending data to watch failed");
+    }
 }

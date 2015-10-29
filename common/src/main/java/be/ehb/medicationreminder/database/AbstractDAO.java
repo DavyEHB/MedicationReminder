@@ -32,7 +32,8 @@ public abstract class AbstractDAO {
     }
 
     public void open(){
-            db = dbHelper.getWritableDatabase();
+        db = dbHelper.getWritableDatabase();
+        Log.d(TAG, "Opening: " + db.getVersion());
     }
 
     public void delete(AbstractDatabaseObject object) {
@@ -53,7 +54,7 @@ public abstract class AbstractDAO {
     }
 
     public ArrayList getAll() {
-        ArrayList<AbstractDatabaseObject> objects = new ArrayList<>();
+        ArrayList<AbstractDatabaseObject> objects = new ArrayList<AbstractDatabaseObject>();
 
         String selectQuery = "SELECT  * FROM " + this.getTableName();
         this.open();

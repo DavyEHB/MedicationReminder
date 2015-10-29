@@ -31,4 +31,5 @@
     <string name="connect_to_watch">Connect to watch</string>
     <string name="connect">Connect</string>
     <string name="title_activity_start">StartActivity</string>
+    <string name="send_success">Sending medications to wach was successfull</string>
 </resources>

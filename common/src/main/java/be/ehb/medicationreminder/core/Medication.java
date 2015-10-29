@@ -2,6 +2,7 @@ package be.ehb.medicationreminder.core;
 
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,7 +15,7 @@ public class Medication extends AbstractDatabaseObject {
     private static final String TAG = "Medication";
     private String sName;
 	private Bitmap Picture;
-    private final ArrayList<Alarm> aAlarms = new ArrayList<>();
+    private final ArrayList<Alarm> aAlarms = new ArrayList<Alarm>();
 
     @SuppressWarnings("unused")
 	private Medication(){
@@ -133,6 +134,7 @@ public class Medication extends AbstractDatabaseObject {
                 next = temp;
             }
         }
+        Log.d(TAG,"Get Next alarm: " + next.getTime());
         return next;
     }
 }

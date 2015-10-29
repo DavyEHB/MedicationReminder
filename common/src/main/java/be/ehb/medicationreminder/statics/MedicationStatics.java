@@ -7,6 +7,7 @@ public class MedicationStatics {
 
     public static final String MED_PUSH_PATH = "/BE.EHB.MEDREM.PUSH.MED";
     public static final String MSG_PATH = "/BE.EHB.MEDREM.MSG" ;
+    public static final String SUCCESS_PATH = "/BE.EHB.MEDREM.SUCCESS";
 
     public static final String MED_ID = "BE.EHB.MEDREM.MED.ID";
     public static final String MED_NAME = "BE.EHB.MEDREM.MED.NAME";
@@ -20,6 +21,4 @@ public class MedicationStatics {
 
     public static final String START_APP = "BE.EHB.MEDREM.START.APP";
     public static final String DELETE_ALL = "BE.EHB.MEDREM.DELETE.ALL";
-
-
 }

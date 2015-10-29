@@ -94,7 +94,7 @@ public class MedicationMap extends TreeMap<Integer,Medication> {
     }
 
     public TreeMap<Integer,Medication> checkAlarms(Alarm alarm){
-        TreeMap<Integer,Medication> tList = new TreeMap<>();
+        TreeMap<Integer,Medication> tList = new TreeMap<Integer,Medication>();
         for (Entry<Integer,Medication> entry : this.entrySet()){
             if (entry.getValue().isTimeEqual(alarm)){
                 tList.put(entry.getKey(),entry.getValue());
@@ -119,6 +119,7 @@ public class MedicationMap extends TreeMap<Integer,Medication> {
     {
         Medication nextMed = null;
         Calendar nextAlarm = null;
+        now.set(Calendar.SECOND,30);
         for (Entry<Integer,Medication> entry : this.entrySet()) {
             Medication tMed = entry.getValue();
             Calendar tCal = tMed.getNextAlarm(now);
@@ -136,7 +137,7 @@ public class MedicationMap extends TreeMap<Integer,Medication> {
         {
             Log.d(TAG,"Current time: " + now.getTime());
             Log.d(TAG,"Next alarm: " + nextAlarm.getTime());
-            Log.d(TAG,"Next med name: " +nextMed.getID());
+            Log.d(TAG,"Next med name: " +nextMed.getName());
         }
         else
         {

@@ -123,7 +123,7 @@ public class MainActivity extends Activity{
         --day_of_week;
         if (day_of_week == 0) day_of_week = 7;
 
-        tTime.set(Calendar.HOUR,7);
+        tTime.set(Calendar.HOUR_OF_DAY,7);
         tTime.set(Calendar.MINUTE,30);
         tTime.set(Calendar.SECOND,0);
 

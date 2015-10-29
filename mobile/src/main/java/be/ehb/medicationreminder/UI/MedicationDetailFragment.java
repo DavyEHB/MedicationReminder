@@ -47,12 +47,13 @@ import be.ehb.medicationreminder.database.MedicationDAO;
  * in two-pane mode (on tablets) or a {@link MedicationDetailActivity}
  * on handsets.
  */
-public class MedicationDetailFragment extends Fragment{
+public class MedicationDetailFragment extends Fragment implements TimePickerDialog.Callback{
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
+    private static final String TAG = "MedicationDetailFrag";
     //private static final String ARG_POS_ID = "alarm_id";
 
     /**
@@ -285,9 +286,9 @@ public class MedicationDetailFragment extends Fragment{
         switch (item.getItemId()) {
             case R.id.new_alarm:
                 Log.d("NEW", "NEW ALARM FOR " + mItem.getName());
-                int h = Calendar.getInstance().get(Calendar.HOUR);
+                int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
                 int m = Calendar.getInstance().get(Calendar.MINUTE);
-                ArrayList<DayOfWeek> everyDay = new ArrayList<>();
+                ArrayList<DayOfWeek> everyDay = new ArrayList<DayOfWeek>();
                 everyDay.add(DayOfWeek.MON);
                 everyDay.add(DayOfWeek.TUE);
                 everyDay.add(DayOfWeek.WED);
@@ -311,7 +312,7 @@ public class MedicationDetailFragment extends Fragment{
         listpos = position;
 
         Iterator<DayOfWeek> dowIT = mItem.getAlarms().get(position).getDays().iterator();
-        ArrayList<Integer> dowINT = new ArrayList<>();
+        ArrayList<Integer> dowINT = new ArrayList<Integer>();
 
         while(dowIT.hasNext()){
             dowINT.add(dowIT.next().ordinal());
@@ -323,6 +324,7 @@ public class MedicationDetailFragment extends Fragment{
         TimePickerDialog timePick = TimePickerDialog.newInstance("Time Picker");
         timePick.setArguments(args);
         timePick.setTargetFragment(MedicationDetailFragment.this,CHANGE_ALARM);
+        timePick.callback = this;
         timePick.show(fm, "time_picker");
     }
 
@@ -334,7 +336,7 @@ public class MedicationDetailFragment extends Fragment{
         args.putInt(TimePickerDialog.ARG_MINUTE_ID, minute);
 
         Iterator<DayOfWeek> dowIT = dow.iterator();
-        ArrayList<Integer> dowINT = new ArrayList<>();
+        ArrayList<Integer> dowINT = new ArrayList<Integer>();
 
         while(dowIT.hasNext()){
             dowINT.add(dowIT.next().ordinal());
@@ -345,7 +347,19 @@ public class MedicationDetailFragment extends Fragment{
         FragmentManager fm = getFragmentManager();
         TimePickerDialog timePick = TimePickerDialog.newInstance("Time Picker");
         timePick.setArguments(args);
-        timePick.setTargetFragment(MedicationDetailFragment.this,ADD_ALARM);
+        timePick.setTargetFragment(MedicationDetailFragment.this, ADD_ALARM);
+        timePick.callback = this;
         timePick.show(fm, "time_picker");
+    }
+
+
+
+    @Override
+    public void onFinnishTimePick(int hour, int minute, ArrayList<Integer> days) {
+        Log.d(TAG, "Finished timepick");
+        Alarm alarm = new Alarm(hour,minute);
+        alarm.setDays(days);
+        mItem.addAlarm(alarm);
+        adapter.notifyDataSetChanged();
     }
 }

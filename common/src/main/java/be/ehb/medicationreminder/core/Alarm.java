@@ -1,5 +1,7 @@
 package be.ehb.medicationreminder.core;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -10,7 +12,7 @@ import java.util.Iterator;
 public class Alarm extends AbstractDatabaseObject{
     private static final String TAG = "ALARM";
 
-    private ArrayList<DayOfWeek> DOW = new ArrayList<>();
+    private ArrayList<DayOfWeek> DOW = new ArrayList<DayOfWeek>();
 
     private int iHours;
     private int iMinutes;
@@ -36,7 +38,7 @@ public class Alarm extends AbstractDatabaseObject{
         super(0);
         iHours = hour;
         iMinutes = minutes;
-        this.DOW = new ArrayList<>();
+        this.DOW = new ArrayList<DayOfWeek>();
         this.DOW.add(DayOfWeek.MON);
         this.DOW.add(DayOfWeek.TUE);
         this.DOW.add(DayOfWeek.WED);
@@ -49,7 +51,7 @@ public class Alarm extends AbstractDatabaseObject{
 
     public Alarm(String time){
         super(0);
-        this.DOW = new ArrayList<>();
+        this.DOW = new ArrayList<DayOfWeek>();
         this.DOW.add(DayOfWeek.MON);
         this.DOW.add(DayOfWeek.TUE);
         this.DOW.add(DayOfWeek.WED);
@@ -201,9 +203,12 @@ public class Alarm extends AbstractDatabaseObject{
         --day_of_week;
         if (day_of_week == 0) day_of_week = 7;
 
-        tTime.set(Calendar.HOUR,iHours);
+        Log.d(TAG, "Hour: " + iHours + " Minutes: " +iMinutes);
+        tTime.set(Calendar.HOUR_OF_DAY,iHours);
         tTime.set(Calendar.MINUTE,iMinutes);
         tTime.set(Calendar.SECOND,0);
+
+        Log.d(TAG, " tTime: " + tTime.getTime());
 
         for (DayOfWeek dow : DOW)
         {

@@ -16,7 +16,7 @@ import be.ehb.medicationreminder.core.Medication;
  */
 public class MedicationDAO extends AbstractDAO {
 
-    private static final String TAG = "ABSTRACT_DAO";
+    private static final String TAG = "MEDICATION_DAO";
     private final String TABLE_NAME = MedRemSQLiteHelper.TABLE_MEDICATIONS;
 
     public MedicationDAO(Context context) {

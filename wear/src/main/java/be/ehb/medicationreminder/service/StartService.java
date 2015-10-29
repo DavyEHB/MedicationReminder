@@ -51,6 +51,8 @@ public class StartService extends IntentService
             Calendar triggerTime = nextMed.getNextAlarm(now);
 
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, triggerTime.getTimeInMillis(), pendingIntent);
+            Log.d(TAG, "Next Med: " + nextMed.getName());
+            Log.d(TAG, "Med ID: " + nextMed.getID());
             Log.d(TAG, "Current time: " + now.getTime());
             Log.d(TAG, "Set time: " + triggerTime.getTime());
         }

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 
@@ -73,6 +74,12 @@ public class ShowMedActivity extends Activity {
 
         if (medication.getPicture() != null) {
             imageView.setImageBitmap(medication.getPicture());
+        }
+
+        Vibrator vib = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        if (vib.hasVibrator())
+        {
+            vib.vibrate(2000);
         }
     }
 }

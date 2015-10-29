@@ -81,11 +81,10 @@ public class MedicationAddFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_medication_add, container, false);
-       return mCallback.loadView(rootView);
+        return mCallback.loadView(rootView);
     }
 
     /*
-
         //return mCallback.loadView(rootView);
        Button add = (Button) rootView.findViewById(R.id.btn_add);
         add.setOnClickListener(new View.OnClickListener() {
@@ -233,8 +232,8 @@ public class MedicationAddFragment extends Fragment {
 
         return rootView;
     }
-
     */
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -256,7 +255,7 @@ public class MedicationAddFragment extends Fragment {
 /*
     private void addAlarm(){
         Log.d("NEW", "NEW ALARM FOR " + mItem.getName());
-        int h = Calendar.getInstance().get(Calendar.HOUR);
+        int h = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         int m = Calendar.getInstance().get(Calendar.MINUTE);
         ArrayList<DayOfWeek> everyDay = new ArrayList<>();
         everyDay.add(DayOfWeek.MON);

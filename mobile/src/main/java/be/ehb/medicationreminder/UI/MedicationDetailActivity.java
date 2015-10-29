@@ -5,9 +5,13 @@ package be.ehb.medicationreminder.UI;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+
 import be.ehb.medicationreminder.R;
+import be.ehb.medicationreminder.core.Alarm;
 
 /**
  * An activity representing a single Medication detail screen. This
@@ -19,6 +23,8 @@ import be.ehb.medicationreminder.R;
  * more than a {@link MedicationDetailFragment}.
  */
 public class MedicationDetailActivity extends Activity {
+
+    private static final String TAG = "DetailActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

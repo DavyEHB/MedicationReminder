@@ -6,12 +6,14 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.data.FreezableUtils;
 import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataEvent;
 import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataMap;
 import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.Wearable;
@@ -111,6 +113,11 @@ public class DataLayerListenerService extends WearableListenerService {
             Log.d(TAG,"New Alarm: " + alarm.toString());
             medication.addAlarm(alarm);
         }
+        Log.d(TAG,"Database:");
+        Log.d(TAG,medicationMap.toString());
+
+        Intent intent = new Intent(this, StartService.class);
+        startService(intent);
     }
 
     @Override
@@ -127,6 +134,7 @@ public class DataLayerListenerService extends WearableListenerService {
         } else if (path.equals(MedicationStatics.DELETE_ALL)){
             medicationDAO.deleteAll();
             alarmDAO.deleteAll();
+            medicationMap.clear();
         }
     }
 
@@ -160,6 +168,24 @@ public class DataLayerListenerService extends WearableListenerService {
         super.onConnectedNodes(connectedNodes);
     }
 
+    protected void sendMessage(String path, String message) {
+        Log.d(TAG,"Sending...");
+        Wearable.MessageApi.sendMessage(
+                mGoogleApiClient, "TEST", path,message.getBytes()).setResultCallback(
+                new ResultCallback<MessageApi.SendMessageResult>() {
+                    @Override
+                    public void onResult(MessageApi.SendMessageResult sendMessageResult) {
+                        if (!sendMessageResult.getStatus().isSuccess()) {
+                            Log.e(TAG, "Failed to sendResult message with status code: "
+                                    + sendMessageResult.getStatus().getStatusCode());
+                        }
+                        else {
+                            Log.d(TAG,"Success sending message");
+                        }
+                    }
+                }
+        );
+    }
 
 
 }

@@ -10,10 +10,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.Asset;
 import com.google.android.gms.wearable.DataApi;
-import com.google.android.gms.wearable.DataEvent;
-import com.google.android.gms.wearable.DataEventBuffer;
 import com.google.android.gms.wearable.DataMap;
-import com.google.android.gms.wearable.DataMapItem;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.PutDataMapRequest;
 import com.google.android.gms.wearable.PutDataRequest;
@@ -36,15 +33,22 @@ public class WearConnector implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
     private static final String TAG = "ABSTRACT_CONN";
+    public static final int SUCCESS = 1;
+    public static final int FAILED = 0;
     private boolean mResolvingError = false;
     private GoogleApiClient mGoogleApiClient;
 
-    private Context mContext;
+    private SendResult sendResult;
+
+    public interface SendResult {
+        public void onSuccess();
+        public void onFailed();
+    }
 
     public WearConnector(Context context){
-        Log.d(TAG,"Creating CRUD");
-        mContext = context;
-        mGoogleApiClient = new GoogleApiClient.Builder(mContext)
+        Log.d(TAG,"Creating Connector");
+        sendResult = (SendResult) context;
+        mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addApi(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -94,7 +98,7 @@ public class WearConnector implements GoogleApiClient.ConnectionCallbacks,
 
         //Alarms
 
-        ArrayList<DataMap> alarms = new ArrayList<>();
+        ArrayList<DataMap> alarms = new ArrayList<DataMap>();
         for (Alarm alarm : medication.getAlarms()) {
             DataMap alarmMap = new DataMap();
             alarmMap.putInt(MedicationStatics.ALARM_ID, alarm.getID());
@@ -137,11 +141,10 @@ public class WearConnector implements GoogleApiClient.ConnectionCallbacks,
                     @Override
                     public void onResult(MessageApi.SendMessageResult sendMessageResult) {
                         if (!sendMessageResult.getStatus().isSuccess()) {
-                            Log.e(TAG, "Failed to send message with status code: "
+                            Log.e(TAG, "Failed to sendResult message with status code: "
                                     + sendMessageResult.getStatus().getStatusCode());
                         }
                         else {
-
                             Log.d(TAG,"Success sending message");
                         }
                     }
@@ -156,8 +159,14 @@ public class WearConnector implements GoogleApiClient.ConnectionCallbacks,
                 .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
                     @Override
                     public void onResult(DataApi.DataItemResult dataItemResult) {
-                        Log.d(TAG, "Sending image was successful: " + dataItemResult.getStatus()
+                        Log.d(TAG, "Sending was successful: " + dataItemResult.getStatus()
                                 .isSuccess());
+
+                        if (dataItemResult.getStatus().isSuccess()){
+                            sendResult.onSuccess();
+                        } else {
+                            sendResult.onFailed();
+                        }
                     }
                 });
     }

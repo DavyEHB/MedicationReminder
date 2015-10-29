@@ -3,6 +3,7 @@ package be.ehb.medicationreminder.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ import be.ehb.medicationreminder.core.Medication;
  */
 public class AlarmDAO extends AbstractDAO {
 
+    private static final String TAG = "ALARM";
     private final String TABLE_NAME = MedRemSQLiteHelper.TABLE_ALARMS;
 
     public AlarmDAO (Context context){
@@ -25,15 +27,22 @@ public class AlarmDAO extends AbstractDAO {
     @Override
     public Alarm insert(AbstractDatabaseObject object) {
         Alarm alarm = (Alarm) object;
+        Log.d(TAG, "old ID: " + alarm.getID());
+        Integer id = null;
         ContentValues values = new ContentValues();
-        values.put(MedRemSQLiteHelper.COLUMN_ID, alarm.getID());
+
+        if (alarm.getID() != 0){
+            id  = alarm.getID();
+        }
+
+        values.put(MedRemSQLiteHelper.COLUMN_ID, id);
         values.put(MedRemSQLiteHelper.COLUMN_TIME, alarm.getTime());
         values.put(MedRemSQLiteHelper.COLUMN_DAYS, alarm.printDays());
         values.put(MedRemSQLiteHelper.COLUMN_MED_ID,alarm.getParentID());
 
         this.open();
-        int insertID = (int) db.insert(this.TABLE_NAME, null, values);
-        alarm = (Alarm) this.getByID(insertID);
+        long insertID = (int) db.insert(this.TABLE_NAME, null, values);
+        alarm = (Alarm) this.getByID((int)insertID);
         this.close();
         return alarm;
     }
@@ -66,7 +75,7 @@ public class AlarmDAO extends AbstractDAO {
 
     public ArrayList<Alarm> getAlarmsByMed(Medication med)
     {
-        ArrayList<Alarm> objects = new ArrayList<>();
+        ArrayList<Alarm> objects = new ArrayList<Alarm>();
 
         String selectQuery = "SELECT  * FROM " + this.getTableName() + " WHERE " + MedRemSQLiteHelper.COLUMN_MED_ID + " ='" + med.getID() + "'";
         this.open();
